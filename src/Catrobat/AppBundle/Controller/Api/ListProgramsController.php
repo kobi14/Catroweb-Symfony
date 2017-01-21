@@ -97,29 +97,19 @@ class ListProgramsController extends Controller
         if ($sortBy == 'downloads') {
             $programs = $program_manager->getMostDownloadedPrograms($flavor, $limit, $offset, $max_version);
         } elseif ($sortBy == 'views') {
-            $programs = $program_manager->getMostViewedPrograms($flavor, $limit, $offset);
+            $programs = $program_manager->getMostViewedPrograms($flavor, $limit, $offset, $max_version);
         } elseif ($sortBy == 'user') {
-            $programs = $program_manager->getUserPrograms($user_id);
+            $programs = $program_manager->getUserPrograms($user_id, $max_version);
         } elseif ($sortBy == 'random') {
-            $programs = $program_manager->getRandomPrograms($flavor, $limit, $offset);
+            $programs = $program_manager->getRandomPrograms($flavor, $limit, $offset, $max_version);
         } else {
-            $programs = $program_manager->getRecentPrograms($flavor, $limit, $offset);
+            $programs = $program_manager->getRecentPrograms($flavor, $limit, $offset, $max_version);
         }
 
         if ($sortBy == 'user') {
             $numbOfTotalProjects = count($programs);
         } else {
-            $numbOfTotalProjects = $program_manager->getTotalPrograms($flavor);
-        }
-
-        if ($max_version !== 0) {
-            $cnt = count($programs);
-            for ($i = 0; $i < $cnt; $i++) {
-                $program_version = $programs[$i]->getLanguageVersion();
-                if (version_compare($program_version, $max_version) > 0) {
-                    unset($programs[$i]);
-                }
-            }
+            $numbOfTotalProjects = $program_manager->getTotalPrograms($flavor, $max_version);
         }
 
         return new ProgramListResponse($programs, $numbOfTotalProjects, $details);

@@ -12,58 +12,72 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProgramRepository extends EntityRepository
 {
-    public function getMostDownloadedPrograms($flavor = 'pocketcode', $limit = 20, $offset = 0)
+    public function getMostDownloadedPrograms($flavor = 'pocketcode', $limit = 20, $offset = 0, $max_version = 0)
     {
         $qb = $this->createQueryBuilder('e');
 
-        return $qb
-    ->select('e')
-    ->where($qb->expr()->eq('e.visible', $qb->expr()->literal(true)))
-    ->andWhere($qb->expr()->eq('e.flavor', ':flavor'))
-    ->andWhere($qb->expr()->eq('e.private', $qb->expr()->literal(false)))
-    ->orderBy('e.downloads', 'DESC')
-    ->setParameter('flavor', $flavor)
-    ->setFirstResult($offset)
-    ->setMaxResults($limit)
-    ->getQuery()
-    ->getResult();
+        $qb->select('e')
+            ->where($qb->expr()->eq('e.visible', $qb->expr()->literal(true)))
+            ->andWhere($qb->expr()->eq('e.flavor', ':flavor'))
+            ->andWhere($qb->expr()->eq('e.private', $qb->expr()->literal(false)))
+            ->orderBy('e.downloads', 'DESC')
+            ->setParameter('flavor', $flavor)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit);
+
+        if($max_version !== 0) {
+            $qb->andWhere($qb->expr()->lte('e.language_version', ':max_version'))
+                ->setParameter('max_version', $max_version);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
-    public function getMostViewedPrograms($flavor = 'pocketcode', $limit = 20, $offset = 0)
+    public function getMostViewedPrograms($flavor = 'pocketcode', $limit = 20, $offset = 0, $max_version = 0)
     {
         $qb = $this->createQueryBuilder('e');
 
-        return $qb
-    ->select('e')
-    ->where($qb->expr()->eq('e.visible', $qb->expr()->literal(true)))
-    ->andWhere($qb->expr()->eq('e.flavor', ':flavor'))
-    ->andWhere($qb->expr()->eq('e.private', $qb->expr()->literal(false)))
-    ->orderBy('e.views', 'DESC')
-    ->setParameter('flavor', $flavor)
-    ->setFirstResult($offset)
-    ->setMaxResults($limit)
-    ->getQuery()
-    ->getResult();
+        $qb->select('e')
+            ->where($qb->expr()->eq('e.visible', $qb->expr()->literal(true)))
+            ->andWhere($qb->expr()->eq('e.flavor', ':flavor'))
+            ->andWhere($qb->expr()->eq('e.private', $qb->expr()->literal(false)))
+            ->orderBy('e.views', 'DESC')
+            ->setParameter('flavor', $flavor)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit);
+
+        if($max_version !== 0) {
+            $qb->andWhere($qb->expr()->lte('e.language_version', ':max_version'))
+                ->setParameter('max_version', $max_version);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 
-    public function getRecentPrograms($flavor = 'pocketcode', $limit = 20, $offset = 0)
+    public function getRecentPrograms($flavor = 'pocketcode', $limit = 20, $offset = 0, $max_version = 0)
     {
         $qb = $this->createQueryBuilder('e');
 
+        $qb->select('e')
+            ->where($qb->expr()->eq('e.visible', $qb->expr()->literal(true)))
+            ->andWhere($qb->expr()->eq('e.flavor', ':flavor'))
+            ->andWhere($qb->expr()->eq('e.private', $qb->expr()->literal(false)))
+            ->orderBy('e.uploaded_at', 'DESC')
+            ->setParameter('flavor', $flavor)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit);
+
+        if($max_version !== 0) {
+            $qb->andWhere($qb->expr()->lte('e.language_version', ':max_version'))
+                ->setParameter('max_version', $max_version);
+        }
+
         return $qb
-    ->select('e')
-    ->where($qb->expr()->eq('e.visible', $qb->expr()->literal(true)))
-    ->andWhere($qb->expr()->eq('e.flavor', ':flavor'))
-    ->andWhere($qb->expr()->eq('e.private', $qb->expr()->literal(false)))
-    ->orderBy('e.uploaded_at', 'DESC')
-    ->setParameter('flavor', $flavor)
-    ->setFirstResult($offset)
-    ->setMaxResults($limit)
-    ->getQuery()
-    ->getResult();
+            ->getQuery()
+            ->getResult();
     }
 
-    public function getRandomPrograms($flavor = 'pocketcode', $limit = 20, $offset = 0)
+    public function getRandomPrograms($flavor = 'pocketcode', $limit = 20, $offset = 0, $max_version = 0)
     {
       // Rand(), newid() and TABLESAMPLE() doesn't exist in the Native Query therefore we have to do a workaround
       // for random results
@@ -73,7 +87,7 @@ class ProgramRepository extends EntityRepository
       }
       else
       {
-        $array_program_ids = $this->getVisibleProgramIds($flavor);
+        $array_program_ids = $this->getVisibleProgramIds($flavor, $max_version);
         shuffle($array_program_ids);
         $_SESSION['randomProgramIds'] = $array_program_ids;
       }
@@ -91,23 +105,27 @@ class ProgramRepository extends EntityRepository
       return $array_programs;
     }
 
-    public function getVisibleProgramIds($flavor)
+    public function getVisibleProgramIds($flavor, $max_version = 0)
     {
       $qb = $this->createQueryBuilder('e');
 
-      $result = $qb
-        ->select('e.id')
-        ->where($qb->expr()->eq('e.visible', $qb->expr()->literal(true)))
-        ->andWhere($qb->expr()->eq('e.flavor', ':flavor'))
-        ->andWhere($qb->expr()->eq('e.private', $qb->expr()->literal(false)))
-        ->setParameter('flavor', $flavor)
-        ->getQuery()
-        ->getResult();
+        $qb->select('e.id')
+            ->where($qb->expr()->eq('e.visible', $qb->expr()->literal(true)))
+            ->andWhere($qb->expr()->eq('e.flavor', ':flavor'))
+            ->andWhere($qb->expr()->eq('e.private', $qb->expr()->literal(false)))
+            ->setParameter('flavor', $flavor);
 
-      return $result;
+        if($max_version !== 0) {
+            $qb->andWhere($qb->expr()->lte('e.language_version', ':max_version'))
+                ->setParameter('max_version', $max_version);
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult();
     }
 
-    public function search($query, $limit = 10, $offset = 0)
+    public function search($query, $limit = 10, $offset = 0, $max_version = 0)
     {
         $em = $this->getEntityManager();
         $metadata = $em->getClassMetadata('Catrobat\AppBundle\Entity\Tag')->getFieldNames();
@@ -163,9 +181,14 @@ class ProgramRepository extends EntityRepository
           $searchterm OR
           e.id = :searchtermint) AND
           e.visible = true AND
-          e.private = false
-        ORDER BY weight DESC, e.uploaded_at DESC
-      ";
+          e.private = false";
+
+        if($max_version !== 0) {
+            $dql .= " AND e.language_version <= ".$max_version;
+        }
+
+        $dql .= " ORDER BY weight DESC, e.uploaded_at DESC";
+
         $qb_program = $this->createQueryBuilder('e');
         $q2 = $qb_program->getEntityManager()->createQuery($dql);
         $q2->setFirstResult($offset);
@@ -212,32 +235,42 @@ class ProgramRepository extends EntityRepository
         return count($result);
     }
 
-    public function getUserPrograms($user_id)
+    public function getUserPrograms($user_id, $max_version = 0)
     {
         $qb = $this->createQueryBuilder('e');
 
+        $qb->select('e')
+            ->leftJoin('e.user', 'f')
+            ->where($qb->expr()->eq('e.visible', $qb->expr()->literal(true)))
+            ->andWhere($qb->expr()->eq('f.id', ':user_id'))
+            ->setParameter('user_id', $user_id);
+
+        if($max_version !== 0) {
+            $qb->andWhere($qb->expr()->lte('e.language_version', ':max_version'))
+                ->setParameter('max_version', $max_version);
+        }
+
         return $qb
-    ->select('e')
-    ->leftJoin('e.user', 'f')
-    ->where($qb->expr()->eq('e.visible', $qb->expr()->literal(true)))
-    ->andWhere($qb->expr()->eq('f.id', ':user_id'))
-    ->setParameter('user_id', $user_id)
-    ->getQuery()
-    ->getResult();
+            ->getQuery()
+            ->getResult();
     }
 
-    public function getTotalPrograms($flavor = 'pocketcode')
+    public function getTotalPrograms($flavor = 'pocketcode', $max_version = 0)
     {
         $qb = $this->createQueryBuilder('e');
 
-        return $qb
-          ->select('COUNT (e.id)')
-          ->where($qb->expr()->eq('e.visible', $qb->expr()->literal(true)))
-          ->andWhere($qb->expr()->eq('e.flavor', ':flavor'))
-          ->andWhere($qb->expr()->eq('e.private', $qb->expr()->literal(false)))
-          ->setParameter('flavor', $flavor)
-          ->getQuery()
-          ->getSingleScalarResult();
+        $qb->select('COUNT (e.id)')
+            ->where($qb->expr()->eq('e.visible', $qb->expr()->literal(true)))
+            ->andWhere($qb->expr()->eq('e.flavor', ':flavor'))
+            ->andWhere($qb->expr()->eq('e.private', $qb->expr()->literal(false)))
+            ->setParameter('flavor', $flavor);
+
+        if($max_version !== 0) {
+            $qb->andWhere($qb->expr()->lte('e.language_version', ':max_version'))
+                ->setParameter('max_version', $max_version);
+        }
+
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
     public function getProgramsWithApkStatus($apk_status)

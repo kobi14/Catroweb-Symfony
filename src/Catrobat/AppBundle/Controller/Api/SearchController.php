@@ -23,16 +23,10 @@ class SearchController extends Controller
         $offset = intval($request->query->get('offset'));
         $max_version = $request->query->get('max_version', 0);
 
-        $programs = $program_manager->search($query, $limit, $offset);
+        $programs = $program_manager->search($query, $limit, $offset, $max_version);
 
-        $numbOfTotalProjects = $program_manager->searchCount($query);
+        $numbOfTotalProjects = count($program_manager->search($query));
 
-        if ($max_version !== 0) {
-            $cnt = count($programs);
-            for ($i = 0; $i < $cnt; $i++) {
-                $this->checkProgramVersion($programs, $i, $max_version);
-            }
-        }
         return new ProgramListResponse($programs, $numbOfTotalProjects);
     }
 
@@ -66,12 +60,5 @@ class SearchController extends Controller
         $numbOfTotalProjects = $program_manager->searchExtensionCount($query);
 
         return new ProgramListResponse($programs, $numbOfTotalProjects);
-    }
-
-    private function checkProgramVersion($programs, $i, $max_version) {
-        $program_version = $programs[$i]->getLanguageVersion();
-        if (version_compare($program_version, $max_version) > 0) {
-            unset($programs[$i]);
-        }
     }
 }

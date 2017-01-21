@@ -170,9 +170,9 @@ class ProgramManager
         return $this->program_repository->findBy($array);
     }
 
-    public function getUserPrograms($user_id)
+    public function getUserPrograms($user_id, $max_version = 0)
     {
-        return $this->program_repository->getUserPrograms($user_id);
+        return $this->program_repository->getUserPrograms($user_id, $max_version);
     }
 
     public function findAll()
@@ -201,29 +201,29 @@ class ProgramManager
         return $this->program_repository->getProgramsWithExtractedDirectoryHash();
     }
 
-    public function getRecentPrograms($flavor, $limit = null, $offset = null)
+    public function getRecentPrograms($flavor, $limit = null, $offset = null, $max_version = 0)
     {
-        return $this->program_repository->getRecentPrograms($flavor, $limit, $offset);
+        return $this->program_repository->getRecentPrograms($flavor, $limit, $offset, $max_version);
     }
 
-    public function getMostViewedPrograms($flavor, $limit = null, $offset = null)
+    public function getMostViewedPrograms($flavor, $limit = null, $offset = null, $max_version = 0)
     {
-        return $this->program_repository->getMostViewedPrograms($flavor, $limit, $offset);
+        return $this->program_repository->getMostViewedPrograms($flavor, $limit, $offset, $max_version);
     }
 
-    public function getMostDownloadedPrograms($flavor, $limit = null, $offset = null)
+    public function getMostDownloadedPrograms($flavor, $limit = null, $offset = null, $max_version = 0)
     {
-        return $this->program_repository->getMostDownloadedPrograms($flavor, $limit, $offset);
+        return $this->program_repository->getMostDownloadedPrograms($flavor, $limit, $offset, $max_version);
     }
 
-    public function getRandomPrograms($flavor, $limit = null, $offset = null)
+    public function getRandomPrograms($flavor, $limit = null, $offset = null, $max_version = 0)
     {
-        return $this->program_repository->getRandomPrograms($flavor, $limit, $offset);
+        return $this->program_repository->getRandomPrograms($flavor, $limit, $offset, $max_version);
     }
 
-    public function search($query, $limit = 10, $offset = 0)
+    public function search($query, $limit = 10, $offset = 0, $max_version = 0)
     {
-        return $this->program_repository->search($query, $limit, $offset);
+        return $this->program_repository->search($query, $limit, $offset, $max_version);
     }
 
     public function searchCount($query)
@@ -236,9 +236,9 @@ class ProgramManager
         return $this->program_repository->searchCountUserPrograms($user_id);
     }
 
-    public function getTotalPrograms($flavor)
+    public function getTotalPrograms($flavor, $max_version = 0)
     {
-        return $this->program_repository->getTotalPrograms($flavor);
+        return $this->program_repository->getTotalPrograms($flavor, $max_version);
     }
 
     public function increaseViews(Program $program)
