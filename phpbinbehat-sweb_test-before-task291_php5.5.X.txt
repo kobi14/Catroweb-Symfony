@@ -1,0 +1,188 @@
+.......F-.......F-.....F---...............F.........F................. 70
+..................................F...............F................... 140
+...................................................................... 210
+......................................F-----.......................... 280
+.......................F---........................................... 350
+.............F---.F----.F---.F------.............F-----............... 420
+..............................F---.................................... 490
+...........F-...........F-...............................F-------..... 560
+...................................................F----------........ 630
+.....F---------.......................F---............................ 700
+...................................................................... 770
+...................................................................... 840
+....................F---.....F---....................F---.....F------. 910
+........F---.....F------....F-...........................F...F...F...F 980
+...F...F...F...F...F-...F-...F-...F-...F---...F---...F---...F---...F-- 1050
+-...F---...F---...F---.......F----................F----...F----
+
+--- Fehlgeschlagene Schritte:
+
+    Then There should be one database entry with type is "tags" and "tag_id" is "1" # src/Catrobat/AppBundle/Features/Web/click_statistics.feature:36
+      An exception occurred while executing 'SELECT t0.id AS id_1, t0.type AS type_2, t0.clicked_at AS clicked_at_3, t0.ip AS ip_4, t0.latitude AS latitude_5, t0.longitude AS longitude_6, t0.country_code AS country_code_7, t0.country_name AS country_name_8, t0.street AS street_9, t0.postal_code AS postal_code_10, t0.locality AS locality_11, t0.user_agent AS user_agent_12, t0.referrer AS referrer_13, t0.tag_id AS tag_id_14, t0.extension_id AS extension_id_15, t0.program_id AS program_id_16, t0.rec_from_program_id AS rec_from_program_id_17, t0.user_id AS user_id_18 FROM click_statistics t0':
+      
+      SQLSTATE[HY000]: General error: 1 no such table: click_statistics (Doctrine\DBAL\Exception\TableNotFoundException)
+
+    Then There should be one database entry with type is "extensions" and "extension_id" is "3" # src/Catrobat/AppBundle/Features/Web/click_statistics.feature:44
+      An exception occurred while executing 'SELECT t0.id AS id_1, t0.type AS type_2, t0.clicked_at AS clicked_at_3, t0.ip AS ip_4, t0.latitude AS latitude_5, t0.longitude AS longitude_6, t0.country_code AS country_code_7, t0.country_name AS country_name_8, t0.street AS street_9, t0.postal_code AS postal_code_10, t0.locality AS locality_11, t0.user_agent AS user_agent_12, t0.referrer AS referrer_13, t0.tag_id AS tag_id_14, t0.extension_id AS extension_id_15, t0.program_id AS program_id_16, t0.rec_from_program_id AS rec_from_program_id_17, t0.user_id AS user_id_18 FROM click_statistics t0':
+      
+      SQLSTATE[HY000]: General error: 1 no such table: click_statistics (Doctrine\DBAL\Exception\TableNotFoundException)
+
+    When I click on the first recommended program # src/Catrobat/AppBundle/Features/Web/click_statistics.feature:50
+      Element matching css "#program-2 .rec-programs" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    Then I should be on "/pocketcode/login" # src/Catrobat/AppBundle/Features/Web/comments.feature:45
+      Current page is "/pocketcode/program/1", but "/pocketcode/login" expected. (Behat\Mink\Exception\ExpectationException)
+
+    Then I should see "hello" # src/Catrobat/AppBundle/Features/Web/comments.feature:53
+      The text "hello" was not found anywhere in the text of the current page. (Behat\Mink\Exception\ResponseTextException)
+
+    Then I should be on "/pocketcode/login" # src/Catrobat/AppBundle/Features/Web/comments.feature:92
+      Current page is "/pocketcode/program/2", but "/pocketcode/login" expected. (Behat\Mink\Exception\ExpectationException)
+
+    Then I should see 0 "#comment-4" # src/Catrobat/AppBundle/Features/Web/comments.feature:104
+      Failed asserting that 1 matches expected '0'.
+
+    And I should see "program 1" # src/Catrobat/AppBundle/Features/Web/help.feature:99
+      The text "program 1" was not found anywhere in the text of the current page. (Behat\Mink\Exception\ResponseTextException)
+
+    Then I switch the language to "Deutsch" # src/Catrobat/AppBundle/Features/Web/language.feature:9
+      {"errorMessage":"Can only set Cookies for the current domain","request":{"headers":{"Accept":"application/json;charset=UTF-8","Content-Length":"52","Content-Type":"application/json;charset=UTF-8","Host":"localhost:8643"},"httpVersion":"1.1","method":"POST","post":"{\"cookie\":{\"name\":\"hl\",\"value\":\"de\",\"secure\":false}}","url":"/cookie","urlParsed":{"anchor":"","query":"","file":"cookie","directory":"/","path":"/cookie","relative":"/cookie","port":"","host":"","password":"","user":"","userInfo":"","authority":"","protocol":"","source":"/cookie","queryKey":{},"chunks":["cookie"]},"urlOriginal":"/session/01ecd3d0-e239-11e6-beb7-e31a24e238f6/cookie"}} (WebDriver\Exception\InvalidCookieDomain)
+
+    And there are mediapackage categories: # src/Catrobat/AppBundle/Features/Web/mediapackage.feature:13
+      An exception occurred while executing 'INSERT INTO mediapackagecategory_mediapackage (mediapackagecategory_id, mediapackage_id) VALUES (?, ?)' with params [1, 1]:
+      
+      SQLSTATE[HY000]: General error: 1 no such table: mediapackagecategory_mediapackage (Doctrine\DBAL\Exception\TableNotFoundException)
+
+    And there are mediapackage categories: # src/Catrobat/AppBundle/Features/Web/mediapackage.feature:13
+      An exception occurred while executing 'INSERT INTO mediapackagecategory_mediapackage (mediapackagecategory_id, mediapackage_id) VALUES (?, ?)' with params [1, 1]:
+      
+      SQLSTATE[HY000]: General error: 1 no such table: mediapackagecategory_mediapackage (Doctrine\DBAL\Exception\TableNotFoundException)
+
+    And there are mediapackage categories: # src/Catrobat/AppBundle/Features/Web/mediapackage.feature:13
+      An exception occurred while executing 'INSERT INTO mediapackagecategory_mediapackage (mediapackagecategory_id, mediapackage_id) VALUES (?, ?)' with params [1, 1]:
+      
+      SQLSTATE[HY000]: General error: 1 no such table: mediapackagecategory_mediapackage (Doctrine\DBAL\Exception\TableNotFoundException)
+
+    And there are mediapackage categories: # src/Catrobat/AppBundle/Features/Web/mediapackage.feature:13
+      An exception occurred while executing 'INSERT INTO mediapackagecategory_mediapackage (mediapackagecategory_id, mediapackage_id) VALUES (?, ?)' with params [1, 1]:
+      
+      SQLSTATE[HY000]: General error: 1 no such table: mediapackagecategory_mediapackage (Doctrine\DBAL\Exception\TableNotFoundException)
+
+    And I should be on "/pocketcode/profile/edit" # src/Catrobat/AppBundle/Features/Web/my_profile.feature:31
+      Current page is "/pocketcode/passwordEdit", but "/pocketcode/profile/edit" expected. (Behat\Mink\Exception\ExpectationException)
+
+    Then I should be on "/pocketcode/profile/edit" # src/Catrobat/AppBundle/Features/Web/my_profile.feature:74
+      Current page is "/pocketcode/emailEdit", but "/pocketcode/profile/edit" expected. (Behat\Mink\Exception\ExpectationException)
+
+    Then I should be on "/pocketcode/profile/edit" # src/Catrobat/AppBundle/Features/Web/my_profile.feature:119
+      Current page is "/pocketcode/emailEdit", but "/pocketcode/profile/edit" expected. (Behat\Mink\Exception\ExpectationException)
+
+    Then I should be on "/pocketcode/profile/edit" # src/Catrobat/AppBundle/Features/Web/my_profile.feature:130
+      Current page is "/pocketcode/countryEdit", but "/pocketcode/profile/edit" expected. (Behat\Mink\Exception\ExpectationException)
+
+    Given I should see "program 1" # src/Catrobat/AppBundle/Features/Web/my_profile.feature:158
+      The text "program 1" was not found anywhere in the text of the current page. (Behat\Mink\Exception\ResponseTextException)
+
+    Then I should be on "/pocketcode/profile/edit" # src/Catrobat/AppBundle/Features/Web/oauth.feature:81
+      Current page is "/pocketcode/emailEdit", but "/pocketcode/profile/edit" expected. (Behat\Mink\Exception\ExpectationException)
+
+    Then I should be on "/pocketcode/profile/edit" # src/Catrobat/AppBundle/Features/Web/oauth.feature:109
+      Current page is "/pocketcode/emailEdit", but "/pocketcode/profile/edit" expected. (Behat\Mink\Exception\ExpectationException)
+
+    And I should see "program 1" # src/Catrobat/AppBundle/Features/Web/profile.feature:21
+      The text "program 1" was not found anywhere in the text of the current page. (Behat\Mink\Exception\ResponseTextException)
+
+    Then I should see "Your search returned 4 results" # src/Catrobat/AppBundle/Features/Web/search.feature:20
+      The text "Your search returned 4 results" was not found anywhere in the text of the current page. (Behat\Mink\Exception\ResponseTextException)
+
+    Then I should see "Your search returned 2 results" # src/Catrobat/AppBundle/Features/Web/search.feature:29
+      The text "Your search returned 2 results" was not found anywhere in the text of the current page. (Behat\Mink\Exception\ResponseTextException)
+
+    Then I should see "Your search returned 2 results" # src/Catrobat/AppBundle/Features/Web/search_programs_via_extensions.feature:29
+      The text "Your search returned 2 results" was not found anywhere in the text of the current page. (Behat\Mink\Exception\ResponseTextException)
+
+    Then I should see "Your search returned 2 results" # src/Catrobat/AppBundle/Features/Web/search_programs_via_extensions.feature:36
+      The text "Your search returned 2 results" was not found anywhere in the text of the current page. (Behat\Mink\Exception\ResponseTextException)
+
+    Then I should see "Your search returned 2 results" # src/Catrobat/AppBundle/Features/Web/search_programs_via_tags.feature:27
+      The text "Your search returned 2 results" was not found anywhere in the text of the current page. (Behat\Mink\Exception\ResponseTextException)
+
+    Then I should see "Your search returned 2 results" # src/Catrobat/AppBundle/Features/Web/search_programs_via_tags.feature:34
+      The text "Your search returned 2 results" was not found anywhere in the text of the current page. (Behat\Mink\Exception\ResponseTextException)
+
+    And I should see the Facebook Like button in the header # src/Catrobat/AppBundle/Features/Web/share.feature:16
+      The Facebook Like Button is not visible!
+      Failed asserting that false is true.
+
+    Then the element "#newest .button-show-more" should be visible # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:36
+      Failed asserting that null is not null.
+
+    Then the element "#mostDownloaded .button-show-more" should be visible # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:36
+      Failed asserting that null is not null.
+
+    Then the element "#mostViewed .button-show-more" should be visible # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:36
+      Failed asserting that null is not null.
+
+    Then the element "#random .button-show-more" should be visible # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:36
+      Failed asserting that null is not null.
+
+    Then the element "#newest .button-show-more" should be visible # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:48
+      Failed asserting that null is not null.
+
+    Then the element "#mostDownloaded .button-show-more" should be visible # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:48
+      Failed asserting that null is not null.
+
+    Then the element "#mostViewed .button-show-more" should be visible # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:48
+      Failed asserting that null is not null.
+
+    Then the element "#random .button-show-more" should be visible # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:48
+      Failed asserting that null is not null.
+
+    When I click "#newest .button-show-more" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:59
+      Element matching css "#newest .button-show-more" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    When I click "#mostDownloaded .button-show-more" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:59
+      Element matching css "#mostDownloaded .button-show-more" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    When I click "#mostViewed .button-show-more" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:59
+      Element matching css "#mostViewed .button-show-more" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    When I click "#random .button-show-more" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:59
+      Element matching css "#random .button-show-more" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    When I click "#newest .button-show-more" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:73
+      Element matching css "#newest .button-show-more" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    When I click "#mostDownloaded .button-show-more" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:73
+      Element matching css "#mostDownloaded .button-show-more" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    When I click "#mostViewed .button-show-more" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:73
+      Element matching css "#mostViewed .button-show-more" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    When I click "#random .button-show-more" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:73
+      Element matching css "#random .button-show-more" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    When I click "#newest .button-show-more" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:88
+      Element matching css "#newest .button-show-more" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    When I click "#mostDownloaded .button-show-more" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:88
+      Element matching css "#mostDownloaded .button-show-more" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    When I click "#mostViewed .button-show-more" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:88
+      Element matching css "#mostViewed .button-show-more" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    When I click "#random .button-show-more" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:88
+      Element matching css "#random .button-show-more" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    And I should see "Similar Programs" # src/Catrobat/AppBundle/Features/Web/show_recommended_programs.feature:35
+      The text "Similar Programs" was not found anywhere in the text of the current page. (Behat\Mink\Exception\ResponseTextException)
+
+    And I should see 1 "#newest #program-1" # src/Catrobat/AppBundle/Features/Web/visited_programs.feature:16
+      Failed asserting that 0 matches expected '1'.
+
+    And I should see 1 "#newest #program-1" # src/Catrobat/AppBundle/Features/Web/visited_programs.feature:24
+      Failed asserting that 0 matches expected '1'.
+
+134 Szenarien (83 bestanden, 51 fehlgeschlagen)
+1113 Schritte (929 bestanden, 51 fehlgeschlagen, 133 übersprungen)
+16m37.37s (81.78Mb)

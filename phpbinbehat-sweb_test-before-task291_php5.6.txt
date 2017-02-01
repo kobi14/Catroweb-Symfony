@@ -1,0 +1,49 @@
+.......................F---........................................... 70
+...................................................................... 140
+...................................................................... 210
+...................................................................... 280
+.......................F---........................................... 350
+...................................................................... 420
+...................................................................... 490
+....................................F................................. 560
+...................................................................... 630
+...................................................................... 700
+...................................................................... 770
+...................................................................... 840
+....................F---.............................................. 910
+...................................................................... 980
+...................................................................... 1050
+F......F......F......F.......F----.............................
+
+--- Fehlgeschlagene Schritte:
+
+    When I click on the first recommended program # src/Catrobat/AppBundle/Features/Web/click_statistics.feature:50
+      Element matching css "#program-2 .rec-programs" not found. (Behat\Mink\Exception\ElementNotFoundException)
+
+    Then I switch the language to "Deutsch" # src/Catrobat/AppBundle/Features/Web/language.feature:9
+      {"errorMessage":"Can only set Cookies for the current domain","request":{"headers":{"Accept":"application/json;charset=UTF-8","Content-Length":"52","Content-Type":"application/json;charset=UTF-8","Host":"localhost:8643"},"httpVersion":"1.1","method":"POST","post":"{\"cookie\":{\"name\":\"hl\",\"value\":\"de\",\"secure\":false}}","url":"/cookie","urlParsed":{"anchor":"","query":"","file":"cookie","directory":"/","path":"/cookie","relative":"/cookie","port":"","host":"","password":"","user":"","userInfo":"","authority":"","protocol":"","source":"/cookie","queryKey":{},"chunks":["cookie"]},"urlOriginal":"/session/6bc58ad0-e253-11e6-9e23-1d7167307a7e/cookie"}} (WebDriver\Exception\InvalidCookieDomain)
+
+    Then the avatar img tag should have the "logo.png" data url # src/Catrobat/AppBundle/Features/Web/my_profile.feature:140
+      Failed asserting that false is true.
+
+    Then I should see "Your search returned 4 results" # src/Catrobat/AppBundle/Features/Web/search.feature:20
+      The text "Your search returned 4 results" was not found anywhere in the text of the current page. (Behat\Mink\Exception\ResponseTextException)
+
+    Then I should see 22 "#newest .program" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:91
+      Failed asserting that 0 matches expected '22'.
+
+    Then I should see 22 "#mostDownloaded .program" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:91
+      Failed asserting that 0 matches expected '22'.
+
+    Then I should see 22 "#mostViewed .program" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:91
+      Failed asserting that 0 matches expected '22'.
+
+    Then I should see 22 "#random .program" # src/Catrobat/AppBundle/Features/Web/showmoreprog.feature:91
+      Failed asserting that 0 matches expected '22'.
+
+    And I should see "Similar Programs" # src/Catrobat/AppBundle/Features/Web/show_recommended_programs.feature:35
+      The text "Similar Programs" was not found anywhere in the text of the current page. (Behat\Mink\Exception\ResponseTextException)
+
+134 Szenarien (125 bestanden, 9 fehlgeschlagen)
+1113 Schritte (1091 bestanden, 9 fehlgeschlagen, 13 übersprungen)
+8m50.48s (80.53Mb)
