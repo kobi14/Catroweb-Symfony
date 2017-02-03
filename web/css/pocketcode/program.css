@@ -7,11 +7,11 @@ article > div {
 }
 
 button, .button {
-    margin-top: 0;
+    margin-top: 7px;
     margin-bottom: 12px;
-    font-size: 19px;
+    font-size: 14px;
     padding-left: 25px;
-    padding-right: 25px
+    padding-right: 25px;
 }
 
 a {
@@ -70,12 +70,16 @@ div.program-picture-and-stats .icon-text {
 
 #program-middle #info {
     overflow: auto;
-    padding: 0 25px
+    padding: 0 25px;
+}
+
+#program-middle #description-headline {
+    margin-top: 17px;
 }
 
 #program-middle #description {
     margin: 25px auto;
-    line-height: 23px
+    line-height: 23px;
 }
 
 #program-middle .btn-apk, #program-middle #report-done {
@@ -304,16 +308,17 @@ div.program-picture-and-stats .icon-text {
     height: 40px
 }
 
+
 .download-button {
-    width: 215px;
+    width: 177px;
     padding: 5px 10px;
     font-weight: normal;
     float: left;
-    margin-right: 10px
+    margin-right: 8px;
 }
 
 .download-button img {
-    height: 50px;
+    height: 40px;
     float: left
 }
 
@@ -501,7 +506,7 @@ input[type='number'] {
 }
 
 .btn {
-    min-height: 64px;
+    min-height: 52px;
     line-height: normal
 }
 
