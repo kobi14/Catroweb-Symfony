@@ -47,53 +47,26 @@ a {
     text-decoration: none
 }
 
-
-
-#program-picture-and-stats {
-    /*border-top: 1px solid #17a5b8;*/
-    padding-top: 0px;
-    width: 100%;
-    /*display: table;*/
-    position: relativ;
-    float: left
+div.program-picture-and-stats {
+    display: flex;
+    flex-flow: row;
 }
 
-#program-picture-and-stats #image {
-    float: left;
-    position: relative
-}
-
-#program-picture-and-stats #image #img-screenshot {
+div.program-picture-and-stats #img-screenshot {
+    margin-right: 20px;
     border: 4px solid #FFF;
-    float: left;
 }
 
-
-
-
+div.program-picture-and-stats #img-author-icon, #img-download-icon, #img-views-icon {
+    display: flex;
+    flex-flow: row;
+    padding-top: 13px;
 }
 
-#program-picture-and-stats > div {
-    /*display: table-cell;*/
-    /*width: 25%*/
-}
-
-#program-picture-and-stats > div > .icon {
-
-}
-
-#program-picture-and-stats > div > .icon-text {
+div.program-picture-and-stats .icon-text {
+    padding-left: 8px;
     line-height: 35px;
-    padding-left: 8px
 }
-
-#program-picture-and-stats #icon-author {
-    /*display: none;*/
-}
-
-
-
-
 
 #program-middle #info {
     overflow: auto;
@@ -249,7 +222,29 @@ a {
     display: block
 }
 
+
 #program-bottom {
+    display: flex;
+    flex-flow: row;
+}
+
+#program-bottom #img-age, #img-size {
+    display: flex;
+    flex-flow: row;
+}
+
+#program-bottom #img-size {
+    padding-left: 20px;
+}
+
+#program-bottom .icon-text {
+    padding-left: 8px;
+    line-height: 35px;
+}
+
+/* out of order at the moment... */
+/*#program-bottom {
+
     border-top: 1px solid #17a5b8;
     padding-top: 25px;
     width: 100%;
@@ -272,7 +267,8 @@ a {
 
 #program-bottom #icon-author {
     display: none
-}
+}*/
+
 
 #social-container {
     display: table;
@@ -623,17 +619,13 @@ input[type='number'] {
 
     #program-bottom {
         padding: 25px;
-        display: block
-    }
-
-    #program-bottom #icon-author {
-        display: block
+        /*display: block*/
     }
 
     #program-bottom > div {
-        display: block;
+        /*display: block;*/
         padding-bottom: 25px;
-        width: 100%
+        /*width: 100%*/
     }
 }
 
