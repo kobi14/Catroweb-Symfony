@@ -4,14 +4,14 @@ article {
   font-size: 15px;
 
   > div {
-    margin-top: 25px;
+    margin-top: 20px;
   }
 }
 
 button, .button {
-  margin-top: 0px;
+  margin-top: 7px;
   margin-bottom: 12px;
-  font-size: @default-font-size + 6;
+  font-size: @default-font-size + 1;
   padding-left: 25px;
   padding-right: 25px;
 }
@@ -50,6 +50,27 @@ a {
   }
 }
 
+.program-picture-and-stats {
+    display: flex;
+    flex-flow: row;
+}
+
+#img-screenshot {
+  margin-right: 20px;
+  border: 4px solid #FFF;
+}
+
+.stats-icon {
+  display: flex;
+  flex-flow: row;
+  margin-top: 13px;
+}
+
+.icon-text {
+    padding-left: 8px;
+    line-height: 35px;
+}
+
 #program-middle {
   #image {
     float: left;
@@ -62,7 +83,9 @@ a {
 
   #info {
     overflow: auto;
-    padding: 0 25px;
+    padding-right: 25px;
+    padding-left: 25px;
+    padding-top: 12+2px;
   }
 
   #description {
@@ -254,9 +277,9 @@ a {
     }
   }
 
-  #icon-author {
+  /*#icon-author {
     display: none;
-  }
+  }*/
 }
 
 #social-container {
@@ -294,14 +317,14 @@ a {
 }
 
 .download-button {
-  width: 215px;
+  width: 177px;
   padding: 5px 10px;
   font-weight: normal;
   float: left;
-  margin-right: 10px;
+  margin-right: 8px;
 }
 .download-button img {
-  height: 50px;
+  height: 38px;
   float: left;
 }
 
@@ -492,7 +515,7 @@ input[type='number'] {
 }
 
 .btn {
-  min-height: 64px;
+  min-height: 52px;
   line-height: normal;
 }
 
