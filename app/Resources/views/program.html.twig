@@ -110,50 +110,44 @@
       <h2 id="description-headline">{{ "description"|trans({}, "catroweb") }}</h2>
 
       <div id="description">
-          {% if program.description %}
-              {{ program.description|nl2br }}
-          {% else %}
-              {{ "noDescription"|trans({}, "catroweb") }}
-          {% endif %}
+        {% if program.description %}
+          {{ program.description|nl2br }}
+        {% else %}
+          {{ "noDescription"|trans({}, "catroweb") }}
+        {% endif %}
       </div>
 
-        {% if  program.tags|length > 0  or program.extensions|length > 0 %}
-          <div id="tag-extension-container">
+      {% if  program.tags|length > 0  or program.extensions|length > 0 %}
+        <div id="tag-extension-container">
 
-              {% if program.extensions|length > 0 %}
-                <div id="extension-container">
-                  <div class="tags-extensions-text">{{ ("extenstion-text")|trans({}, "catroweb") }}:</div>
-                  <div class="tagext">
-                      {% for extension in program.extensions %}
-                        <a class="rec-programs" href="{{ url('extension_search', { q : extension.name }) }}">
-                          <button id={{ extension.name }} class="btn-tags-extensions"> {{ extension.name }}</button>
-                        </a>
-                      {% endfor %}
-                  </div>
-                </div>
-              {% endif %}
+          {% if program.extensions|length > 0 %}
+            <div id="extension-container">
+              <div class="tags-extensions-text">{{ ("extenstion-text")|trans({}, "catroweb") }}:</div>
+                <div class="tagext">
+                  {% for extension in program.extensions %}
+                    <a class="rec-programs" href="{{ url('extension_search', { q : extension.name }) }}">
+                      <button id={{ extension.name }} class="btn-tags-extensions"> {{ extension.name }}</button>
+                    </a>
+                  {% endfor %}
+              </div>
+            </div>
+          {% endif %}
 
-              {% if  program.tags|length > 0 %}
-                <div id="tag-container">
-                  <div class="tags-extensions-text">{{ ("tag-text")|trans({}, "catroweb") }}:</div>
-                  <div class='tagext'>
-                      {% for tag in program.tags %}
-                        <a class="rec-programs" href="{{ url('tag_search', { q : tag.id }) }}">
-                          <button id={{ tag.en }} class="btn-tags-extensions"> {{ ("tags.constant.tag"~tag.id)|trans({}, "catroweb") }}</button>
-                        </a>
-                      {% endfor %}
-                  </div>
-                </div>
-              {% endif %}
+          {% if  program.tags|length > 0 %}
+            <div id="tag-container">
+              <div class="tags-extensions-text">{{ ("tag-text")|trans({}, "catroweb") }}:</div>
+              <div class='tagext'>
+                {% for tag in program.tags %}
+                  <a class="rec-programs" href="{{ url('tag_search', { q : tag.id }) }}">
+                    <button id={{ tag.en }} class="btn-tags-extensions"> {{ ("tags.constant.tag"~tag.id)|trans({}, "catroweb") }}</button>
+                  </a>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
 
-          </div>
-        {% endif %}
-
-
-
-
-
-        {#cut here#}
+        </div>
+      {% endif %}
 
         {% if nolb_status and program.user == app.user.username and (('teacher' in app.user.username) or ('test' in app.user.username))%}
           <button id="nolb-project-button" class="btn download-button">
