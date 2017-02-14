@@ -1,0 +1,7 @@
+parameters:
+  facebook_share_app_id: 1469491976688194
+  facebook_share_app_secret: fa52067ad220890adfc9ea51f6bc773b
+  facebook_share_access_token: CAAU4fsNFUkIBAOSxK2SRPAbWr7KqDF5J3HZAa9FOTZAWB2A2c2juSvv2X44SWOXXDNwmLmpFXOi8z46sCPTmXJf65l4cbRqhdIfJzhrkgdECe5kldnYwToMLK28ZCwKeWNABOZAgitZCE0Qudso2DMJKtm1zFV6O33jaK05VvxHo7tA9su9tnnTWfBI6ipiIZD
+  facebook_share_channel_id: 403594093169051 #Catrobat Programs Test
+  facebook_share_admin_fb_id: 967465856642889
+  jspath: compiled/min/

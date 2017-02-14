@@ -1,0 +1,54 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: symfony
+    database_user: root
+    database_password: root
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: en
+    secret: 7fd211d5467048bc68824f94eebdb68bd872a0da
+    security.acl.permission.map.class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
+    proxies: {  }
+    jenkins:
+        url: 'http://localhost'
+        job: Build
+        token: token
+        uploadtoken: secret
+    application_name: 'Pocket Code'
+    google_app_id: 427226922034-r016ige5kb30q9vflqbt1h0i3arng8u1.apps.googleusercontent.com
+    google_secret: R-03kHRy88MiKB_oPpxDFweM
+    facebook_app_id: 1602051133371458
+    facebook_secret: 01233fa110bcb3858f600decf3a98a1b
+    google_testuser_mail: pocketcodetester@gmail.com
+    google_testuser_pw: test$pocket
+    google_testuser_name: PocketGoogler
+    google_testuser_id: '105155320106786463089'
+    facebook_testuser_mail: pocket_zlxacqt_tester@tfbnw.net
+    facebook_testuser_pw: test
+    facebook_testuser_name: HeyWickieHey
+    facebook_testuser_id: 105678789764016
+    ldap_host: 'http://localhost'
+    ldap_port: 636
+    ldap_user: 'cn=user, dc=organisation, dc=org'
+    ldap_password: secret
+    ldap_base_dn: 'ou=users, dc=organisation, dc=org'
+    ldap_group_filter: '(&(&(ObjectClass=groupOfUniqueNames))(uniqueMember=%s))'
+    facebook_share_app_id: null
+    facebook_share_app_secret: null
+    facebook_share_admin_fb_id: null
+    facebook_share_channel_id: null
+    facebook_share_access_token: null
+    backup_host_name: null
+    backup_host_user: null
+    backup_host_password: null
+    backup_host_directory: null
+    backup_host_resource_directory: null
+    backup_database_name: null
+    backup_database_user: null
+    backup_database_password: null
+    jspath: compiled/min/
