@@ -67,11 +67,18 @@
       </div>
 
     <div id="info">
+      <div id="loading-container" class="loading-bar">
+        <div id="loading-message" class="loading-bar">{{ "download"|trans({}, "catroweb") }}</div>
+        <div id="progress" class="loading-bar">
+          <div id="bar" class="loading-bar">
+          </div>
+        </div>
+      </div>
 
       <div class="download-container">
         <a id="url-download" href="{% if (checkCatrobatLanguage(program_details.languageVersion)) %}
                     {{ program_details.downloadUrl }} {% else %} javascript:program.showUpdateAppPopup(); {% endif %}">
-          <button id="download" class="btn btn-primary download-button">
+          <button id="download" class="btn btn-primary download-button special-btn">
             <table>
               <tr>
                 <td><img src="{{ asset('images/symbols/download.svg') }}" > </td>
@@ -81,7 +88,7 @@
           </button>
         </a>
 
-        <button id="apk-generate" class="btn btn-apk download-button">
+        <button id="apk-generate" class="btn btn-apk download-button special-btn">
           <table>
             <tr>
               <td><img src="{{ asset('images/symbols/apk_download.svg') }}" > </td>
@@ -391,7 +398,13 @@
           url_link.href = download_href;
         }, 5000);
 
+
+        program.bar();
+
         window.location = download_href;
+
+
+
       }
       return false;
     });

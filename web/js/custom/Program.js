@@ -151,4 +151,28 @@ var Program = function(status_url, create_url, apk_preparing, apk_text, waiting_
     }
 
     self.create_cookie('referrer', document.referrer, 1, '/');
+
+    self.bar = function () {
+        document.getElementById('loading-container').style.display ='block';
+        setTimeout(function () {
+            $('.special-btn').hide().css();
+        },50);
+
+        self.move();
+
+    }
+
+    self.move = function () {
+        var element = document.getElementById('bar');
+        var width = 1;
+        var id = setInterval(frame, 10);
+        function frame() {
+            if (width >=100){
+                clearInterval(id)
+            }else {
+                width++;
+                element.style.witdh = width + '%';
+            }
+        }
+    }
 };
