@@ -851,6 +851,12 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
             case "save-edit":
               $button = $page->find("css", ".save-button");
               break;
+            case "pirate-button":
+                $button = $page->find("css", "#pirate-button");
+                break;
+            case "special-button":
+                $button = $page->find("css", "#special-button");
+                break;
             default:
                 assertTrue(false);
         }
@@ -1216,7 +1222,25 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
     assertTrue(is_int(strpos($href_value, $url_text)));
   }
 
-  /**
+    /**
+     * @Then /^I see the "([^"]*)"$/
+     */
+    public function iSeeThe($arg1)
+    {
+        $this->assertElementOnPage("#" . $arg1);
+    }
+
+    /**
+     * @Then /^I dont see the "([^"]*)"$/
+     */
+    public function iDontSeeThe($arg1)
+    {
+        $this->assertElementNotOnPage("#" . $arg1);
+    }
+
+
+
+    /**
    * @Then /^I see the "([^"]*)" popup$/
    */
   public function iSeeThePopup($arg1)

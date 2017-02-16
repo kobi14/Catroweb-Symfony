@@ -1,0 +1,38 @@
+{% extends ':Default:base.html.twig' %}
+{% block head %}
+<link rel="stylesheet" href="{{ asset('css/'~theme()~'/editprofile.css') }}" media="screen"/>
+{% endblock %}
+
+{% block body %}
+<h1 id="profile-edit-header">{{ 'special.steal'|trans({}, 'catroweb') }}</h1>
+
+<button id="pirate-button" class="btn btn-done">{{ 'special.go'|trans({}, 'catroweb') }}</button>
+
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $(document).on('click', '#pirate-button', function() {
+            console.log('Pirate started');
+            $.ajax
+            ({
+                type: 'GET',
+                url: '{{ url('pirate') }}',
+                dataType: "json",
+
+                success: function (data)
+                {
+                    console.log(data.text);
+                },
+                error: function(jqXHR, error)
+                {
+                    console.log('Couldnt execute ajax');
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -143,6 +143,12 @@ myprofile:
   editPassword: Edit password
   editCountry: Edit country
   editEmail: Edit E-Mail
+  special: Steal program from catroweb user
+  specialHeader: Steal program from catroweb user
+
+special:
+  steal: Steal program from catroweb user
+  go: Be a pirate
 
 
 

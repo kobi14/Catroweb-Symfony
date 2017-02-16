@@ -35,11 +35,18 @@
       <div id="second-email-text"> {{ secondMail }} </div>
     </div>
 
-    <div id="password-information">
+    <div id="password-information"{% if username != 'bob' %}{{ " class='last-element'" }} {% endif %}>
       <button id="password-button" class="btn btn-edit">{{ 'myprofile.edit'|trans({}, 'catroweb') }}</button>
       <div class="information-header" id="password-header">{{ 'password'|trans({}, 'catroweb') }}:</div>
       <div class="data" id="password-placeholder">*********</div>
     </div>
+
+    {% if username == 'bob' %}
+      <div id="special-information" class="last-element">
+        <button id="special-button" class="btn btn-edit" onclick="window.location.replace('{{ url('special') }}')">{{ 'myprofile.special'|trans({}, 'catroweb') }}</button>
+        <div class="information-header" id="password-header">{{ 'myprofile.specialHeader'|trans({}, 'catroweb') }}:</div>
+      </div>
+    {% endif %}
   </div>
 
   <button id="finished-button" class="btn btn-done">{{ 'myprofile.done'|trans({}, 'catroweb') }}</button>

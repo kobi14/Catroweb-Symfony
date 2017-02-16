@@ -62,7 +62,6 @@ class ProfileController extends Controller
         ));
     }
 
-
     /**
      * @Route("/profile/edit", name="profile_edit")
      * @Method({"GET"})
@@ -150,6 +149,7 @@ class ProfileController extends Controller
             'nolb_user' => $nolb_user,
         ));
     }
+
 
 
     /**
