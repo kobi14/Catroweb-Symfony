@@ -68,9 +68,9 @@
 
     <div id="info">
       <div id="loading-container" class="loading-bar">
-        <div id="loading-message" class="loading-bar">{{ "download"|trans({}, "catroweb") }}</div>
-        <div id="progress" class="loading-bar">
-          <div id="bar" class="loading-bar">
+        <div id="loading-message" class="loading-bar">{{ "loadingMessage"|trans({}, "catroweb") }}</div>
+        <div id="bar" class="loading-bar">
+          <div id="progress" class="loading-bar">
           </div>
         </div>
       </div>
@@ -78,7 +78,7 @@
       <div class="download-container">
         <a id="url-download" href="{% if (checkCatrobatLanguage(program_details.languageVersion)) %}
                     {{ program_details.downloadUrl }} {% else %} javascript:program.showUpdateAppPopup(); {% endif %}">
-          <button id="download" class="btn btn-primary download-button special-btn">
+          <button id="download" class="btn download-button">
             <table>
               <tr>
                 <td><img src="{{ asset('images/symbols/download.svg') }}" > </td>
@@ -88,7 +88,18 @@
           </button>
         </a>
 
-        <button id="apk-generate" class="btn btn-apk download-button special-btn">
+        <a id="url-open" >
+          <button id="open" class="btn download-button after-btn-download">
+            <table>
+              <tr>
+                <td><img src="{{ asset('images/symbols/download.svg') }}" > </td>
+                <td>{{ "open"|trans({}, "catroweb") }}</td>
+              </tr>
+            </table>
+          </button>
+        </a>
+
+        <button id="apk-generate" class="btn download-button after-btn-download">
           <table>
             <tr>
               <td><img src="{{ asset('images/symbols/apk_download.svg') }}" > </td>
@@ -101,12 +112,13 @@
           <button  class="btn download-button download-pending">
             <table>
               <tr>
-                <td><img src="{{ asset('images/symbols/apk_download.svg') }}" > </td>
+                <td><img src="{{ asset('images/symbols/loading.gif') }}" > </td>
+                {#<td> <object width="40px" height="40px" data="{{ asset('images/symbols/apk-pending-icon.html') }}" ></object> </td>#}
                 <td>{{ "apk.preparing"|trans({}, "catroweb") }}</td>
               </tr>
             </table>
           </button>
-          <img class="pending-icon" src="{{ asset('images/symbols/loading.gif') }}" >
+          {#<img class="pending-icon" src="{{ asset('images/symbols/loading.gif') }}" >#}
         </div>
 
         <button id="apk-download" class="btn btn-apk download-button">
@@ -397,14 +409,8 @@
         setTimeout(function() {
           url_link.href = download_href;
         }, 5000);
-
-
-        program.bar();
-
+        program.prgDownloadBar();
         window.location = download_href;
-
-
-
       }
       return false;
     });

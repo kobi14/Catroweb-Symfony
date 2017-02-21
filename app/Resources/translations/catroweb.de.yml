@@ -10,6 +10,8 @@ error: Fehler
 cancel: Abbrechen
 report: Melden
 download: Als Programm herunterladen
+open: Öffnen
+loadingMessage: Programm wird heruntergeladen...
 description: Beschreibung
 noDescription: Keine Beschreibung verfügbar.
 country: Land

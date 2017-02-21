@@ -11,6 +11,8 @@ error: Error
 cancel: Cancel
 report: Report
 download: Download as program
+open: Open Program
+loadingMessage: Download in progress...
 description: Description
 noDescription: No description available.
 country: Country

@@ -2,10 +2,10 @@
   Generated File by Grunt
   Sourcepath: web/js
 */
-var Program = function(status_url, create_url, apk_preparing, apk_text, waiting_gif, update_app_header, update_app_text, btn_close_popup)
-{
+var Program;
+Program = function (status_url, create_url, apk_preparing, apk_text, waiting_gif, update_app_header, update_app_text, btn_close_popup) {
     var self = this;
-    
+
     self.status_url = status_url;
     self.create_url = create_url;
     self.apk_preparing = apk_preparing;
@@ -17,86 +17,80 @@ var Program = function(status_url, create_url, apk_preparing, apk_text, waiting_
     self.apk_url = null;
     self.apk_download_timeout = false;
 
-    self.getApkStatus = function()
-    {
+    self.getApkStatus = function () {
         $.get(self.status_url, null, self.onResult);
     };
-    
-    self.createApk = function()
-    {
+
+    self.createApk = function () {
         $('.btn-apk').hide();
         $('#apk-pending').show().css("display", "inline-block");
         $.get(self.create_url, null, self.onResult);
         self.showPreparingApkPopup();
     };
 
-    self.onResult = function(data)
-    {
+    self.onResult = function (data) {
         $('.btn-apk').hide();
-        if (data.status == 'ready')
-        {
+        if (data.status == 'ready') {
             self.apk_url = data.url;
             $('#apk-download').show();
-            $('#apk-download').click(function() {
-                if(!self.apk_download_timeout) {
+            $('#apk-download').click(function () {
+                if (!self.apk_download_timeout) {
                     self.apk_download_timeout = true;
 
-                    setTimeout(function() {
-                      self.apk_download_timeout = false;
+                    setTimeout(function () {
+                        self.apk_download_timeout = false;
                     }, 5000);
 
+
                     top.location.href = self.apk_url;
-              }
+                }
             });
         }
-        else if (data.status == "pending") 
-        {
+        else if (data.status == "pending") {
             $('#apk-pending').show().css("display", "inline-block");
             console.log('pending');
             setTimeout(self.getApkStatus, 5000);
         }
-        else if (data.status == "none")
-        {
+        else if (data.status == "none") {
             $('#apk-generate').show();
             $('#apk-generate').click(self.createApk);
         }
 
-        if ($('#bg-dark, #popup-info').length > 0 && data.status == 'ready')
-        {
+        if ($('#bg-dark, #popup-info').length > 0 && data.status == 'ready') {
             $('#bg-dark, #popup-info').remove();
         }
     };
 
-    self.createLinks = function()
-    {
-        $('#description').each(function(){
-            $(this).html( $(this).html().replace(/((http|https|ftp):\/\/[\w?=&.\/\+-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a href="$1" target="_blank">$1</a> ') );
+    self.createLinks = function () {
+        $('#description').each(function () {
+            $(this).html($(this).html().replace(/((http|https|ftp):\/\/[\w?=&.\/\+-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g, '<a href="$1" target="_blank">$1</a> '));
         });
     };
 
-    self.setReportListener = function(program_id, report_url)
-    {
-        $('#report, #report-cancel').click(function() { $('#report-container').toggle(); });
+    self.setReportListener = function (program_id, report_url) {
+        $('#report, #report-cancel').click(function () {
+            $('#report-container').toggle();
+        });
 
-        $('#report-report').click(function() {
-          if($('#reportReason').val() == ''){
-              $('#reportReason').addClass('text-area-empty');
-              return;
-          }
-          $('#reportReason').removeClass('text-area-empty');
-          $.get(report_url, {
-              program : program_id,
-              note : $('#reportReason').val()
-          }).success(function() {
-              $('#report-form').hide();
-              $('#report-done').show();
-          }).fail(function() {
-              alert('ERROR'); // display better error message
-          });
+        $('#report-report').click(function () {
+            if ($('#reportReason').val() == '') {
+                $('#reportReason').addClass('text-area-empty');
+                return;
+            }
+            $('#reportReason').removeClass('text-area-empty');
+            $.get(report_url, {
+                program: program_id,
+                note: $('#reportReason').val()
+            }).success(function () {
+                $('#report-form').hide();
+                $('#report-done').show();
+            }).fail(function () {
+                alert('ERROR'); // display better error message
+            });
         });
     };
 
-    self.showUpdateAppPopup = function() {
+    self.showUpdateAppPopup = function () {
         var popup_background = self.createPopupBackgroundDiv();
         var popup_div = self.createPopupDiv();
         popup_div.append("<h2>" + self.update_app_header + "</h2><br>");
@@ -108,13 +102,13 @@ var Program = function(status_url, create_url, apk_preparing, apk_text, waiting_
         $('body').append(popup_background);
         $('body').append(popup_div);
 
-        $('#popup-background, #btn-close-popup').click(function() {
+        $('#popup-background, #btn-close-popup').click(function () {
             popup_div.remove();
             popup_background.remove();
         });
     };
 
-    self.showPreparingApkPopup = function() {
+    self.showPreparingApkPopup = function () {
         var popup_background = self.createPopupBackgroundDiv();
         var popup_div = self.createPopupDiv();
 
@@ -128,18 +122,18 @@ var Program = function(status_url, create_url, apk_preparing, apk_text, waiting_
         $('body').append(popup_background);
         $('body').append(popup_div);
 
-        $('#popup-background, #btn-close-popup').click(function() {
+        $('#popup-background, #btn-close-popup').click(function () {
             popup_div.remove();
             popup_background.remove();
         });
     };
 
-    self.createPopupDiv = function() {
+    self.createPopupDiv = function () {
         var popup_div = $('<div id="popup-info" class="popup-div"></div>');
         return popup_div;
     };
 
-    self.createPopupBackgroundDiv = function() {
+    self.createPopupBackgroundDiv = function () {
         var popup_background = $('<div id="popup-background" class="popup-bg"></div>');
 
         return popup_background;
@@ -156,27 +150,39 @@ var Program = function(status_url, create_url, apk_preparing, apk_text, waiting_
 
     self.create_cookie('referrer', document.referrer, 1, '/');
 
-    self.bar = function () {
-        document.getElementById('loading-container').style.display ='block';
+    self.prgDownloadBar = function () {
+        document.getElementById('loading-container').style.display = 'block';
+        setTimeout(function () {$('.download-button').hide().css();        }, 50);
+        setTimeout(function () {self.move();        }, 50);
         setTimeout(function () {
-            $('.special-btn').hide().css();
-        },50);
+            document.getElementById('loading-container').style.display = 'none';
+            $('.after-btn-download').show().css();
+        }, 2000);
+    }
 
-        self.move();
-
+    self.appDownloadBar = function () {
+        document.getElementById('loading-container').style.display = 'block';
+        setTimeout(function () {$('.download-button').hide().css();        }, 50);
+        setTimeout(function () {self.move();        }, 50);
+        setTimeout(function () {
+            document.getElementById('loading-container').style.display = 'none';
+            $('.download-button').show().css();
+        }, 2000);
     }
 
     self.move = function () {
-        var element = document.getElementById('bar');
         var width = 1;
-        var id = setInterval(frame, 10);
+        var id = setInterval(frame, 15);
+
         function frame() {
-            if (width >=100){
+            if (width >= 100) {
                 clearInterval(id)
-            }else {
-                width++;
-                element.style.witdh = width + '%';
+            } else {
+                width = width + 1;
+                document.getElementById('progress').style.width = width + '%';
             }
         }
     }
+
+
 };
