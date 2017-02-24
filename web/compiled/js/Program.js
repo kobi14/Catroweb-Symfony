@@ -152,17 +152,17 @@ Program = function (status_url, create_url, apk_preparing, apk_text, waiting_gif
 
     self.prgDownloadBar = function () {
         document.getElementById('loading-container').style.display = 'block';
-        setTimeout(function () {$('.download-button').hide().css();        }, 50);
+        setTimeout(function () {$('.download-button').hide();        }, 50);
         setTimeout(function () {self.move();        }, 50);
         setTimeout(function () {
             document.getElementById('loading-container').style.display = 'none';
             $('.after-btn-download').show().css();
-        }, 2000);
+        }, 3000);
     }
 
     self.appDownloadBar = function () {
         document.getElementById('loading-container').style.display = 'block';
-        setTimeout(function () {$('.download-button').hide().css();        }, 50);
+        setTimeout(function () {$('.download-button').hide();        }, 50);
         setTimeout(function () {self.move();        }, 50);
         setTimeout(function () {
             document.getElementById('loading-container').style.display = 'none';

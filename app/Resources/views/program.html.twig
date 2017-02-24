@@ -61,9 +61,9 @@
 
 
             </a>
-            {% if not isWebview() %}
+            {#{% if not isWebview() %}
                 {% include ':social:social_share_desktop.html.twig' %}
-            {% endif %}
+            {% endif %}#}
         </div>
 
         <div id="info">
@@ -164,6 +164,9 @@
             {% endif %}
 
 
+            <div id="space">
+                <br>
+            </div>
             <h2 class="info-class">{{ "description"|trans({}, "catroweb") }}</h2>
 
             <div id="description" class="info-class">
