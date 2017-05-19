@@ -156,22 +156,14 @@ class ScreenshotRepository
   {
     $filesystem = new Filesystem();
     $screenshot_temp_path = $this->tmp_dir . $this->generateFileNameFromId($id);
-/*    $filesystem->chown($screenshot_temp_path, "unpriv");
-    $filesystem->chgrp($screenshot_temp_path, "unpriv");
-    $filesystem->chmod($screenshot_temp_path, 0777);*/
     rename($screenshot_temp_path, $this->screenshot_dir . $this->generateFileNameFromId($id));
-    $filesystem->remove($screenshot_temp_path);
   }
 
   public function makeThumbnailPerm($id)
   {
     $filesystem = new Filesystem();
     $thumbnail_temp_path = $this->tmp_dir . "thumb/" . $this->generateFileNameFromId($id);
-/*    $filesystem->chown($thumbnail_temp_path, "unpriv");
-    $filesystem->chgrp($thumbnail_temp_path, "unpriv");
-    $filesystem->chmod($thumbnail_temp_path, 0777);*/
     rename($thumbnail_temp_path, $this->thumbnail_dir . $this->generateFileNameFromId($id));
-    $filesystem->remove($thumbnail_temp_path);
   }
 
   public function saveScreenshotTemp($filepath, $id)
