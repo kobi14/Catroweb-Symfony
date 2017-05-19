@@ -43,9 +43,9 @@ class ProgramFileRepository
   public function makeTempProgramPerm($id)
   {
     $tmp_program_path = $this->tmp_dir . $id . ".catrobat";
-    $this->filesystem->chown($tmp_program_path, "unpriv");
+/*    $this->filesystem->chown($tmp_program_path, "unpriv");
     $this->filesystem->chgrp($tmp_program_path, "unpriv");
-    $this->filesystem->chmod($tmp_program_path, 0766);
+    $this->filesystem->chmod($tmp_program_path, 0766);*/
     $this->filesystem->copy($tmp_program_path, $this->directory . $id . ".catrobat", true);
     $this->filesystem->remove($tmp_program_path);
   }
