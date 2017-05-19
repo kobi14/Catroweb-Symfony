@@ -5,11 +5,14 @@ namespace Catrobat\AppBundle\Entity;
 use Catrobat\AppBundle\Events\InvalidProgramUploadedEvent;
 use Catrobat\AppBundle\Events\ProgramAfterInsertEvent;
 use Catrobat\AppBundle\Exceptions\InvalidCatrobatFileException;
+use Catrobat\AppBundle\Exceptions\Upload\MissingChecksumException;
+use Catrobat\AppBundle\Exceptions\Upload\UploadFailedException;
 use Catrobat\AppBundle\Requests\AddProgramRequest;
 use Catrobat\AppBundle\Services\ExtractedCatrobatFile;
 use Catrobat\AppBundle\Services\ProgramFileRepository;
 use Catrobat\AppBundle\Services\ScreenshotRepository;
 use Knp\Component\Pager\Paginator;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Catrobat\AppBundle\Entity\UserManager;
 use Catrobat\AppBundle\Events\ProgramBeforeInsertEvent;
@@ -159,16 +162,34 @@ class ProgramManager
       return null;
     }
 
+    try
+    {
+      if ($extracted_file->getScreenshotPath() == null)
+      {
+        // Todo: maybe for later implementations
+      }
+      else
+      {
+        $this->screenshot_repository->makeTempProgramAssetsPerm($program->getId());
+      }
 
-    if ($extracted_file->getScreenshotPath() == null)
+      $this->file_repository->makeTempProgramPerm($program->getId());
+    } catch (\Exception $error)
     {
-      // Todo: maybe for later implementations
+      $program_id = $program->getId();
+      $this->entity_manager->remove($program);
+      $this->entity_manager->flush();
+
+      try
+      {
+        $this->screenshot_repository->deleteTempFilesForProgram($program_id);
+      } catch (IOException $error)
+      {
+        throw $error;
+      }
+      return null;
     }
-    else
-    {
-      $this->screenshot_repository->makeTempProgramAssetsPerm($program->getId());
-    }
-    $this->file_repository->makeTempProgramPerm($program->getId());
+
 
 
     $this->entity_manager->persist($program);
