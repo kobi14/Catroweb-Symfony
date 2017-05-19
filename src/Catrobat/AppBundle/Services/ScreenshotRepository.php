@@ -155,15 +155,19 @@ class ScreenshotRepository
   public function makeScreenshotPerm($id)
   {
     $filesystem = new Filesystem();
-    $filesystem->copy($this->tmp_dir . $this->generateFileNameFromId($id), $this->screenshot_dir . $this->generateFileNameFromId($id));
-    $filesystem->remove($this->tmp_dir . $this->generateFileNameFromId($id));
+    $screenshot_temp_path = $this->tmp_dir . $this->generateFileNameFromId($id);
+    $filesystem->chmod($screenshot_temp_path, "0766");
+    $filesystem->copy($screenshot_temp_path, $this->screenshot_dir . $this->generateFileNameFromId($id));
+    $filesystem->remove($screenshot_temp_path);
   }
 
   public function makeThumbnailPerm($id)
   {
     $filesystem = new Filesystem();
-    $filesystem->copy($this->tmp_dir . "thumb/" . $this->generateFileNameFromId($id), $this->thumbnail_dir . $this->generateFileNameFromId($id));
-    $filesystem->remove($this->tmp_dir . "thumb/" . $this->generateFileNameFromId($id));
+    $thumbnail_temp_path = $this->tmp_dir . "thumb/" . $this->generateFileNameFromId($id);
+    $filesystem->chmod($thumbnail_temp_path, "0766");
+    $filesystem->copy($thumbnail_temp_path, $this->thumbnail_dir . $this->generateFileNameFromId($id));
+    $filesystem->remove($thumbnail_temp_path);
   }
 
   public function saveScreenshotTemp($filepath, $id)

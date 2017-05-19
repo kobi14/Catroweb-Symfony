@@ -42,8 +42,10 @@ class ProgramFileRepository
 
   public function makeTempProgramPerm($id)
   {
-    $this->filesystem->copy($this->tmp_dir . $id . ".catrobat", $this->directory . $id . ".catrobat", true);
-    $this->filesystem->remove($this->tmp_dir . $id . ".catrobat");
+    $tmp_program_path = $this->tmp_dir . $id . ".catrobat";
+    $this->filesystem->chmod($tmp_program_path, "0766");
+    $this->filesystem->copy($tmp_program_path, $this->directory . $id . ".catrobat", true);
+    $this->filesystem->remove($tmp_program_path);
   }
 
   public function saveProgramfile(File $file, $id)
