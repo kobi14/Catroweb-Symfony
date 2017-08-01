@@ -21,7 +21,6 @@ Feature: Creating click statistics by clicking on tags, extensions and recommend
       | 4  | Music        | Musik       |
       | 5  | Art          | Kunst       |
       | 6  | Experimental | Experimental|
-
     And there are programs:
       | id | name      | description | owned by | downloads | apk_downloads | views | upload time      | version | extensions | tags_id | remix_root |
       | 1  | Minions   | p1          | Catrobat | 3         | 2             | 12    | 01.01.2013 12:00 | 0.8.5   | Lego,Phiro | 1,2,3,4 | true       |
@@ -29,7 +28,6 @@ Feature: Creating click statistics by clicking on tags, extensions and recommend
       | 3  | Alone     | p3          | Catrobat | 5         | 55            | 2     | 01.03.2013 12:00 | 0.8.5   |            | 1,2     | true       |
       | 4  | Trolol    | p5          | Catrobat | 5         | 1             | 1     | 01.03.2013 12:00 | 0.8.5   | Lego       | 5       | true       |
       | 5  | Nothing   | p6          | Catrobat | 5         | 1             | 1     | 01.03.2013 12:00 | 0.8.5   |            | 6       | true       |
-
     And there are forward remix relations:
       | ancestor_id | descendant_id | depth |
       | 1           | 1             | 0     |
@@ -38,7 +36,6 @@ Feature: Creating click statistics by clicking on tags, extensions and recommend
       | 3           | 3             | 0     |
       | 4           | 4             | 0     |
       | 5           | 5             | 0     |
-
     And there are featured programs:
       | program_id | imagetype | active | flavor     | priority |
       | 2          | jpeg      | 1      | pocketcode | 0        |
