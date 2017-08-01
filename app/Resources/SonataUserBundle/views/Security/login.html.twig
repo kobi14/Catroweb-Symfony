@@ -3,10 +3,6 @@
 {% block head %}
   <link rel="stylesheet" href="{{ asset('js/jquery-ui/jquery-ui.css') }}">
   <link rel="stylesheet" href="{{ asset('css/'~theme()~'/login.css') }}" media="screen"/>
-
-  <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-  <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-  <script src="{{ asset('compiled/bootstrap/jquery.min.js') }}"></script>
   <script src="{{ asset('js/jquery-ui/jquery-ui.js') }}"></script>
   <script src="{{ asset( getJavascriptPath('loginscript.js') ) }}"></script>
 
@@ -100,60 +96,6 @@
         </div>
       </div>
     </div>
-
-    <form id="form_fos" action="{{ path("fos_user_security_check") }}" method="post">
-      <input type="hidden" id="csrf_token" name="_csrf_token" value="{{ csrf_token }}"/>
-
-      <div class="input-field">
-        <input type="text" id="username" name="_username" value="{{ last_username }}"
-               placeholder="{{ "username"|trans({}, "catroweb") }}"/>
-        <div class="img-login"></div>
-      </div>
-
-      <div class="input-field">
-        <input type="password" id="password" name="_password" placeholder="{{ "password"|trans({}, "catroweb") }}"/>
-        <div class="img-password"></div>
-      </div>
-
-      {% if (app.session.get("catroweb_login_redirect") is not empty) %}
-        <input type="hidden" name="_target_path" value="{{ app.session.get("catroweb_login_redirect") }}"/>
-        {{ app.session.set("catroweb_login_referer", app.session.get("catroweb_login_redirect")) }}
-        {{ app.session.set("catroweb_login_redirect", "") }}
-
-      {% elseif ("/login" in app.request.headers.get('referer')) %}
-
-        {% if app.session.has("catroweb_login_referer") %}
-          <input type="hidden" name="_target_path" value="{{ app.session.get("catroweb_login_referer") }}#login"/>
-        {% else %}
-          <input type="hidden" name="_target_path" value="{{ path("index") }}#login"/>
-        {% endif %}
-      {% else %}
-        {% if (app.request.headers.get('referer') is not empty) %}
-          <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}#login"/>
-          {{ app.session.set("catroweb_login_referer", app.request.headers.get('referer')) }}
-        {% else %}
-          <input type="hidden" name="_target_path" value="index"/>
-        {% endif %}
-      {% endif %}
-
-      {% if error %}
-        <div class="error-text">{{ "login.passOrUser"|trans({}, "catroweb") }}</div>
-      {% endif %}
-
-      <button id="_submit" class="login"
-              name="_submit">{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
-
-      <div id="login_links">
-        <div>
-          <a id="create_account"
-             href="{{ path('register_form') }}">{{ 'login.createAccount'|trans({}, 'catroweb') }}</a>
-        </div>
-        <div>
-          <a href="{{ path("sonata_user_resetting_request") }}"
-             id="pw-request">{{ "login.forgotPass"|trans({}, "catroweb") }}</a>
-        </div>
-      </div>
-    </form>
 
     {% include ':social:oauth_form.html.twig' %}
 

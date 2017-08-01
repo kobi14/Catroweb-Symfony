@@ -114,19 +114,6 @@ module.exports = function(grunt)
         dest  : 'web/compiled/bootstrap/'
       }
     },
-    cssmin: {
-      target: {
-        files: [
-          {
-            expand: true,
-            cwd   : 'web/css/bootstrap_yeti/',
-            src   : 'bootstrap_yeti_adjustments.css',
-            dest  : 'web/compiled/bootstrap/',
-            ext   : '.min.css'
-          }
-        ]
-      }
-    },
     uglify: {
       options      : {
         mangle: false
@@ -167,5 +154,5 @@ module.exports = function(grunt)
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.registerTask('default', ['copy','concat', 'less', 'cssmin', 'uglify', 'watch']);
+  grunt.registerTask('default', ['copy','concat', 'less', 'uglify', 'watch']);
 };
