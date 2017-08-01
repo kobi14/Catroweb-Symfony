@@ -5,18 +5,20 @@ p {
   margin: 0;
 }
 
-p.light {
-  color: rgba(255, 255, 255, 0.6);
+p.light,
+span.light {
+  color: black;
 }
 
-p.heavy {
+
+p.heavy,
+span.heavy {
   font-weight: 700;
 }
 
 .brick-stat-heading {
   font-weight: 700;
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
 }
 
@@ -29,7 +31,6 @@ span.brick-stat-heading {
   font-size: 15px;
   font-weight: bold;
   padding: 50px 0 25px;
-  color: rgba(255, 255, 255, 0.4);
 }
 
 .show-hide-code-statistic,
@@ -49,7 +50,7 @@ span.brick-stat-heading {
     line-height: 35px;
     font-size: 19px;
     font-weight: bold;
-    color: white;
+    color: black;
     text-transform: uppercase;
   }
 
@@ -89,7 +90,7 @@ span.brick-stat-heading {
   display: none;
 
   .dropbtn > p {
-    color: white;
+    color: black;
     font-weight: 700;
     margin-left: 8px;
   }
@@ -105,9 +106,29 @@ span.brick-stat-heading {
         text-align: right;
       }
     }
+
+
+  }
+
+  img.diff-statistic-arrow {
+    position: absolute;
+    bottom: 6px;
+    left: -15px;
+    height: auto;
+    width: auto;
+    max-height: 6px;
+    margin: 0;
+    border: none;
+    transform: rotate(-90deg);
+
+    &:hover {
+      cursor: pointer;
+      cursor: hand;
+    }
   }
 
   .brick-statistics {
+    padding: 0 40px;
     margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
@@ -115,15 +136,118 @@ span.brick-stat-heading {
   }
 
   .brick-statistic-block {
+    position: relative;
     margin: 8px;
     min-width: 20%;
+    height: 62px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    border-radius: 4px;
+    transition: all 0.15s ease;
 
     div:nth-child(2) {
       margin-left: 12px;
+    }
+
+    .specific-brick-stats {
+      margin-left: 10px;
+      text-align: right;
+      position: relative;
+      width: 100px;
+      color: black;
+
+      .specific-stat-num {
+        margin-left: 12px;
+      }
+    }
+
+    .different-statistic-dropcontent {
+      z-index: 10;
+      display: none;
+      width: ~"calc(100% + 100px)";
+      position: absolute;
+      top: -25px;
+      left: -50px;
+      background-color: rgba(14,14,14,.9);
+      border-radius: 5px;
+      text-align: center;
+      padding: 97px 5px 25px;
+
+      .no-brick-type-note {
+        font-size: 13px;
+        margin-top: 10px;
+        text-transform: uppercase;
+      }
+
+      .different-brick-type {
+        position: relative;
+
+        &:first-of-type {
+          margin-top: 10px;
+        }
+      }
+
+      .separation-line {
+        display: inline-block;
+        height: 2px;
+        width: 40px;
+        background-color: rgba(255,255,255,.7);
+      }
+
+      .exit-btn {
+        border-radius: 50%;
+        background-color: rgba(14,14,14,.9);
+        position: absolute;
+        right: -7.5px;
+        top: -7.5px;
+        width: 25px;
+        height: 25px;
+
+        img {
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
+
+    &.active {
+      background-color: rgba(14,14,14,.9);
+
+      .brick-stat-heading {
+        z-index: 15;
+        color: black;
+      }
+
+      .specific-brick-stats {
+        z-index: 15;
+
+        span.light {
+          color: rgba(255,255,255,0.9);
+        }
+
+        span.heavy {
+          color: @default-text-color;
+        }
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      cursor: hand;
+
+      .brick-stat-heading {
+        color: black;
+      }
+
+      span.light {
+        color: rgba(255,255,255,0.9);
+      }
+
+      span.heavy {
+        color: @default-text-color;
+      }
     }
   }
 
@@ -136,10 +260,14 @@ span.brick-stat-heading {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: black;
 
     .flex-right {
       margin-left: 5%;
+    }
+
+    .flex-left {
+      position: relative;
     }
   }
 
@@ -170,12 +298,11 @@ span.brick-stat-heading {
 
         .scene-heading {
           margin: 0 10px;
-          color: rgba(255, 255, 255, 0.4);
           border-bottom: 1px solid @default-text-color;
 
           span {
             margin-left: 8px;
-            color: white;
+            color: black;
             font-size: 16px;
           }
         }
@@ -197,7 +324,7 @@ span.brick-stat-heading {
   }
 
   .heading {
-    color: white;
+    color: black;
     padding: 5px 10px;
     border-bottom: solid 3px rgba(115, 154, 166, 0.3);
     margin-bottom: 8px;
@@ -240,7 +367,7 @@ span.brick-stat-heading {
   .dropbtn {
     position: relative;
     padding: 5px;
-    background-color: #00475d;
+    background-color: rgb(23,165,184);
     border-top: solid 2px #739aa6;
     border-bottom: solid 2px black;
     border-radius: 3px;
@@ -298,7 +425,7 @@ span.brick-stat-heading {
     position: relative;
     background-color: #003149;
     height: auto;
-    color: white;
+    color: black;
     border-radius: 3px;
     font-size: @default-font-size;
 
@@ -388,7 +515,6 @@ span.brick-stat-heading {
     text-align: center;
     font-size: @default-font-size;
     padding: 20px 0;
-    color: rgba(255, 255, 255, 0.4);
   }
 
   #object-list-wrapper {
