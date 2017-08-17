@@ -130,37 +130,46 @@
         </div>
       {% endif %}
 
-      <div class="download-container">
+      <div class="fab-backdrop"></div>
 
-        <div class="backdrop"></div>
-        <div class="fab child" data-subitem="1">
-          <span>
-            <div>
+      <div class="fab-container" style="bottom: 64px; right:64px; position: fixed; z-index: 10000">
+        <div class="fab" id="fab-master">
+          <span>+</span>
+          <span class="fab-label">Label text</span>
+        </div>
+
+        <ul class="fab-list">
+{#          <li data-subitem="1">
+            <span class="fab-label">APK Download</span>
+            <span class="fab fab-child">
               <img id="apk-generate" src="{{ asset('images/symbols/apk_download.svg') }}" />
               <img id="apk-pending"  src="{{ asset('images/symbols/apk_download.svg') }}" />
               <img id="apk-download" src="{{ asset('images/symbols/apk_download.svg') }}" />
-            </div>
-          </span>
-        </div>
-        {% if not ("RU" in app.request.locale) and not ("ru" in app.request.locale) %}
-        <div class="fab child" data-subitem="2">
-          <span>
+            </span>
+          </li>
+
+          {% if not ("RU" in app.request.locale) and not ("ru" in app.request.locale) %}
+            <li class="fab fab-child" data-subitem="2">
+              <span class="fab-label">RemixGraph</span>
+              <span>
                 <div>
                   <i id="remix-graph-button" class="fa fa-sitemap" aria-hidden="true"></i>
                 </div>
-          </span>
-        </div>
-        {% endif %}
-        <div class="fab child" data-subitem="3">
-          <span>
-            <div>
-              <a id="url-download" href="{% if (checkCatrobatLanguage(program_details.languageVersion)) %}{{ program_details.downloadUrl }}{% else %}javascript:program.showUpdateAppPopup();{% endif %}">
-              <img src="{{ asset('images/symbols/download.svg') }}" >
-              </a>
-            </div>
-          </span>
-        </div>
-        <div class="fab" id="masterfab"><span>+</span></div>
+              </span>
+            </li>
+          {% endif %}#}
+
+          <li data-subitem="3">
+            <span class="fab-label">Program download</span>
+            <span class="fab fab-child">
+              <div>
+                <a id="url-download" href="{% if (checkCatrobatLanguage(program_details.languageVersion)) %}{{ program_details.downloadUrl }}{% else %}javascript:program.showUpdateAppPopup();{% endif %}">
+                <img src="{{ asset('images/symbols/download.svg') }}" >
+                </a>
+              </div>
+            </span>
+          </li>
+        </ul>
       </div>
 
       {% if nolb_status and program.user == app.user.username %}
@@ -770,25 +779,25 @@
 
 
     $(function(){
-        $(".fab,.backdrop").click(function(){
-            if($(".backdrop").is(":visible")){
-                $(".backdrop").fadeOut(125);
-                $(".fab.child")
+        $(".fab,.fab-backdrop").click(function(){
+            if($(".fab-backdrop").is(":visible")){
+                $(".fab-backdrop").fadeOut(125);
+                $(".fab.fab-child")
                     .stop()
                     .animate({
-                        bottom  : $("#masterfab").css("bottom"),
+                        bottom  : $("#fab-master").css("bottom"),
                         opacity : 0
                     },125,function(){
                         $(this).hide();
                     });
             }else{
-                $(".backdrop").fadeIn(125);
-                $(".fab.child").each(function(){
+                $(".fab-backdrop").fadeIn(125);
+                $(".fab.fab-child").each(function(){
                     $(this)
                         .stop()
                         .show()
                         .animate({
-                            bottom  : (parseInt($("#masterfab").css("bottom")) + parseInt($("#masterfab").outerHeight())
+                            bottom  : (parseInt($("#fab-master").css("bottom")) + parseInt($("#fab-master").outerHeight())
                             + 70 * $(this).data("subitem") - $(".fab.child").outerHeight()) + "px",
                             opacity : 1
                         },125);
