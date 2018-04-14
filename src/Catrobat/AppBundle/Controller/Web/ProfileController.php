@@ -62,6 +62,45 @@ class ProfileController extends Controller
         ));
     }
 
+    /**
+     * @Route("/steal-program-from-catroweb", name="steal_program_from_catroweb")
+     * @Method({"POST"})
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function stealProgramFromCatroweb(Request $request)
+    {
+        try {
+
+            $user = $this->getUser();
+
+            if (!$user) {
+                return $this->redirectToRoute('fos_user_security_login');
+            }
+
+            $em = $this->getDoctrine()->getManager();
+
+            $catroweb_user = $this->get('usermanager')->findOneBy(array('username' => 'catroweb'));
+
+            $programs = $catroweb_user->getPrograms();
+            if (! count($programs)) {
+                // TODO: warning flash msg
+                return $this->redirectToRoute('profile');
+            }
+
+            $program = $programs->first();
+            $program->setUser($user);
+            $em->flush();
+
+        } catch (\Exception $ex) {
+            // TODO: error flash msg
+            return $this->redirectToRoute('profile');
+        }
+        // TODO: success flash msg
+        return $this->redirectToRoute('profile');
+    }
 
     /**
      * @Route("/profile/edit", name="profile_edit")

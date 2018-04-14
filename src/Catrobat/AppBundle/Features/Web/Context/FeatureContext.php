@@ -1078,6 +1078,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
       case "save-edit":
         $button = $page->find("css", ".save-button");
         break;
+      case "steal":
+        $button = $page->find("css", ".steal-button");
+        break;
       default:
         assertTrue(false);
     }

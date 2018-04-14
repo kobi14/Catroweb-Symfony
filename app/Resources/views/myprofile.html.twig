@@ -26,6 +26,13 @@
       <div id="email"> {{ firstMail }} </div>
       <div id="second-email"> {{ secondMail }} </div>
     </div>
+
+    {% if 'stephan' in app.user.username %}
+      <form method="POST" action="{{ url('steal_program_from_catroweb') }}">
+        <button type="submit" class="btn btn-warning steal-button">Steal a program from catroweb</button>
+      </form>
+    {% endif %}
+
   </div>
 
   {% if not nolb_user and not app.user.limited %}
