@@ -433,6 +433,7 @@ apk:
   prepare: 'App erstellen'
   preparing: 'App wird vorbereitet'
   text: 'Der Vorgang kann eine Weile dauern'
+  steal: 'Stiehl die App'
 errors:
   username:
     blank: Benutzername darf nicht leer sein

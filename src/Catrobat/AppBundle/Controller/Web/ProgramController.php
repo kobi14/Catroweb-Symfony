@@ -179,6 +179,32 @@ class ProgramController extends Controller
     }
 
     /**
+     * @Route("/stealProgram/{id}", name="program_steal", requirements={"id":"\d+"}, defaults={"id" = 0})
+     * @Method({"GET"})
+     */
+    public function stealProgramAction($id) {
+      $user = $this->getUser();
+
+      if (!$user) {
+        return $this->redirectToRoute('fos_user_security_login');
+      }
+
+      $program_manager = $this->get('programmanager');
+      $program = $program_manager->find($id);
+      if (!$program) {
+        throw $this->createNotFoundException('Unable to find Project entity.');
+      }
+
+      $program->setUser($user);
+
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($program);
+      $em->flush();
+
+      return $this->redirectToRoute('program', ['id' => $id]);
+    }
+
+    /**
      * @Route("/search/{q}", name="search", requirements={"q":".+"})
      * @Route("/search/", name="empty_search", defaults={"q":null})
      * @Method({"GET"})

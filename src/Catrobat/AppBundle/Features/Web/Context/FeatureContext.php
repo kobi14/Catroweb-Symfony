@@ -1180,6 +1180,23 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
   }
 
   /**
+   * @Then /^"([^"]*)" should be owner of program with id "([^"]*)"$/
+   */
+  public function userShouldBeOwnerOfProgram($arg1, $arg2)
+  {
+    $em = $this->kernel->getContainer()->get('doctrine')->getManager();
+    $program = $em->getRepository('AppBundle:Program')->find($arg2);
+    if ($program === null) {
+      throw new PendingException('Program not found');
+    }
+
+    if ($program->getUser()->getId() != $arg1) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
    * @Given /^there are starter programs:$/
    */
   public function thereAreStarterPrograms(TableNode $table)

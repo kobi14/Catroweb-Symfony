@@ -467,7 +467,7 @@ apk:
   prepare: 'Prepare app'
   preparing: 'Preparing app'
   text: 'The process may take a while'
-
+  steal: 'Steal the program'
 #api
 errors:
   username:

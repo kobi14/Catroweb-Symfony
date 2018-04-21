@@ -161,6 +161,17 @@
             </table>
           </button>
 
+          {% if app.user and program.user != app.user.username %}
+            <button id="apk-steal" class="btn btn-primary btn-apk download-button" onclick="location.href = '{{ url('program_steal', {id: program.id}) }}'">
+              <table>
+                <tr>
+                  <td><img src="{{ asset('images/symbols/steal.png') }}" /></td>
+                  <td>{{ "apk.steal"|trans({}, "catroweb") }}</td>
+                </tr>
+              </table>
+            </button>
+          {% endif %}
+
           <button id="apk-pending" class="btn  btn-primary download-button">
             <table id="pending-table">
               <tr>
