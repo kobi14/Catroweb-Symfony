@@ -2,6 +2,7 @@
 
 namespace Catrobat\AppBundle\Controller\Api\schemas;
 
+use Swagger\Annotations as SWG;
 /**
  * @SWG\Definition(
  *   required={"statusCode", "answer"},
