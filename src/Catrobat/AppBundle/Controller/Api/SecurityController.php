@@ -46,6 +46,7 @@ class SecurityController extends Controller
    * @SWG\Post(
    *   path="/api/checkToken/check.json",
    *   summary="Check if a token of a user is still valid",
+   *   consumes={"multipart/form-data"},
    *   @SWG\Parameter(
    *    name="username",
    *    in="formData",
@@ -62,11 +63,19 @@ class SecurityController extends Controller
    *   ),
    *   @SWG\Response(
    *      response=200,
-   *      description="ok"
+   *      description="ok",
+   *      @SWG\Schema(
+   *         type="object",
+   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         ),
    *   ),
    *   @SWG\Response(
    *      response=601,
-   *      description="Authentication of device failed: invalid auth-token!"
+   *      description="Authentication of device failed: invalid auth-token!",
+   *      @SWG\Schema(
+   *         type="object",
+   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         ),
    *   )
    * )
    */
@@ -173,6 +182,7 @@ class SecurityController extends Controller
    *   path="/api/register/Register.json",
    *   summary="Register a native user",
    *   operationId="registerNativeUser",
+   *   consumes={"multipart/form-data"},
    *   @SWG\Parameter(
    *    name="registrationUsername",
    *    in="formData",
@@ -197,42 +207,82 @@ class SecurityController extends Controller
    * @SWG\Response(
    *    response=601,
    *    description="The password or username was incorrect.",
+   *      @SWG\Schema(
+   *         type="object",
+   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         ),
    *   ),
    * @SWG\Response(
    *    response=751,
-   *    description="The password is missing."
+   *    description="The password is missing.",
+   *      @SWG\Schema(
+   *         type="object",
+   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         ),
    *   ),
    * @SWG\Response(
    *    response=753,
-   *    description="Your password must have at least 6 characters."
+   *    description="Your password must have at least 6 characters.",
+   *      @SWG\Schema(
+   *         type="object",
+   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         ),
    *   ),
    * @SWG\Response(
    *    response=765,
-   *    description="Your email seems to be invalid"
+   *    description="Your email seems to be invalid",
+   *      @SWG\Schema(
+   *         type="object",
+   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         ),
    *   ),
    * @SWG\Response(
    *    response=778,
-   *    description="Email must not be blank!"
+   *    description="Email must not be blank!",
+   *      @SWG\Schema(
+   *         type="object",
+   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         ),
    *   ),
    * @SWG\Response(
    *    response=757,
-   *    description="This email address already exists."
+   *    description="This email address already exists.",
+   *      @SWG\Schema(
+   *         type="object",
+   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         ),
    *   ),
    * @SWG\Response(
    *    response=777,
-   *    description="This username already exists."
+   *    description="This username already exists.",
+   *      @SWG\Schema(
+   *         type="object",
+   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         ),
    *   ),
    * @SWG\Response(
    *    response=762,
    *    description="Username must not be blank",
+   *      @SWG\Schema(
+   *         type="object",
+   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         ),
    *   ),
    * @SWG\Response(
    *    response=763,
    *    description="The username is invalid.",
+   *      @SWG\Schema(
+   *         type="object",
+   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         ),
    *   ),
    * @SWG\Response(
    *    response=201,
-   *    description="Registration successful!"
+   *    description="Registration successful!",
+   *      @SWG\Schema(
+   *         type="object",
+   *         @SWG\Items(ref="#/definitions/APIRegisterModel")
+   *         ),
    *   ),
    * )
    */
@@ -241,6 +291,7 @@ class SecurityController extends Controller
     /**
      * @var $userManager UserManager
      * @var $user        User
+     * @var $tokenGenerator TokenGenerator
      */
     $userManager = $this->get("usermanager");
     $tokenGenerator = $this->get("tokengenerator");
@@ -321,6 +372,7 @@ class SecurityController extends Controller
    *   path="/api/login/Login.json",
    *   summary="Login a native user",
    *   operationId="loginNativeUser",
+   *   consumes={"multipart/form-data"},
    *   @SWG\Parameter(
    *    name="loginUsername",
    *    in="formData",

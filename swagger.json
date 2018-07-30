@@ -13,6 +13,9 @@
         "/api/checkToken/check.json": {
             "post": {
                 "summary": "Check if a token of a user is still valid",
+                "consumes": [
+                    "multipart/form-data"
+                ],
                 "parameters": [
                     {
                         "name": "username",
@@ -31,10 +34,22 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "ok"
+                        "description": "ok",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/APIDefaultModel"
+                            }
+                        }
                     },
                     "601": {
-                        "description": "Authentication of device failed: invalid auth-token!"
+                        "description": "Authentication of device failed: invalid auth-token!",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/APIDefaultModel"
+                            }
+                        }
                     }
                 }
             }
@@ -43,6 +58,9 @@
             "post": {
                 "summary": "Register a native user",
                 "operationId": "registerNativeUser",
+                "consumes": [
+                    "multipart/form-data"
+                ],
                 "parameters": [
                     {
                         "name": "registrationUsername",
@@ -68,25 +86,94 @@
                 ],
                 "responses": {
                     "601": {
-                        "description": "The password or username was incorrect."
+                        "description": "The password or username was incorrect.",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/APIDefaultModel"
+                            }
+                        }
                     },
-                    "602": {
-                        "description": "The password is missing."
+                    "751": {
+                        "description": "The password is missing.",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/APIDefaultModel"
+                            }
+                        }
                     },
                     "753": {
-                        "description": "Your password must have at least 6 characters."
+                        "description": "Your password must have at least 6 characters.",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/APIDefaultModel"
+                            }
+                        }
                     },
                     "765": {
-                        "description": "Your email seems to be invalid"
+                        "description": "Your email seems to be invalid",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/APIDefaultModel"
+                            }
+                        }
+                    },
+                    "778": {
+                        "description": "Email must not be blank!",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/APIDefaultModel"
+                            }
+                        }
                     },
                     "757": {
-                        "description": "This email address already exists."
+                        "description": "This email address already exists.",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/APIDefaultModel"
+                            }
+                        }
                     },
                     "777": {
-                        "description": "This username already exists."
+                        "description": "This username already exists.",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/APIDefaultModel"
+                            }
+                        }
+                    },
+                    "762": {
+                        "description": "Username must not be blank",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/APIDefaultModel"
+                            }
+                        }
+                    },
+                    "763": {
+                        "description": "The username is invalid.",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/APIDefaultModel"
+                            }
+                        }
                     },
                     "201": {
-                        "description": "Registration successful!"
+                        "description": "Registration successful!",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/APIRegisterModel"
+                            }
+                        }
                     }
                 }
             }
@@ -95,6 +182,9 @@
             "post": {
                 "summary": "Login a native user",
                 "operationId": "loginNativeUser",
+                "consumes": [
+                    "multipart/form-data"
+                ],
                 "parameters": [
                     {
                         "name": "loginUsername",
@@ -134,5 +224,55 @@
             }
         }
     },
-    "definitions": {}
+    "definitions": {
+        "APIDefaultModel": {
+            "required": [
+                "statusCode",
+                "answer"
+            ],
+            "properties": {
+                "statusCode": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "200"
+                },
+                "answer": {
+                    "type": "string",
+                    "example": "This is not the answer you are looking for!"
+                },
+                "preHeaderMessages": {
+                    "type": "string",
+                    "example": ""
+                }
+            },
+            "type": "object"
+        },
+        "APIRegisterModel": {
+            "required": [
+                "statusCode",
+                "answer",
+                "token"
+            ],
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "example": " ae2b1fca515949e5d54fb22b8ed95575"
+                },
+                "statusCode": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "200"
+                },
+                "answer": {
+                    "type": "string",
+                    "example": "This is not the answer you are looking for!"
+                },
+                "preHeaderMessages": {
+                    "type": "string",
+                    "example": ""
+                }
+            },
+            "type": "object"
+        }
+    }
 }
