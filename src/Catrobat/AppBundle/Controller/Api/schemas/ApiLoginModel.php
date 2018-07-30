@@ -16,7 +16,7 @@ use Swagger\Annotations as SWG;
  *   type="object",
  *   )
  */
-class APILoginModel extends APIDefaultModel
+class ApiLoginModel extends ApiDefaultModel
 {
   /**
    * @SWG\Property(example=" ae2b1fca515949e5d54fb22b8ed95575")

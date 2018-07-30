@@ -66,7 +66,7 @@ class SecurityController extends Controller
    *      description="ok",
    *      @SWG\Schema(
    *         type="object",
-   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         @SWG\Items(ref="#/definitions/ApiMessageModel")
    *         ),
    *   ),
    *   @SWG\Response(
@@ -74,7 +74,7 @@ class SecurityController extends Controller
    *      description="Authentication of device failed: invalid auth-token!",
    *      @SWG\Schema(
    *         type="object",
-   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         @SWG\Items(ref="#/definitions/ApiMessageModel")
    *         ),
    *   )
    * )
@@ -209,7 +209,7 @@ class SecurityController extends Controller
    *    description="The password or username was incorrect.",
    *      @SWG\Schema(
    *         type="object",
-   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         @SWG\Items(ref="#/definitions/ApiMessageModel")
    *         ),
    *   ),
    * @SWG\Response(
@@ -217,7 +217,7 @@ class SecurityController extends Controller
    *    description="The password is missing.",
    *      @SWG\Schema(
    *         type="object",
-   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         @SWG\Items(ref="#/definitions/ApiMessageModel")
    *         ),
    *   ),
    * @SWG\Response(
@@ -225,7 +225,7 @@ class SecurityController extends Controller
    *    description="Your password must have at least 6 characters.",
    *      @SWG\Schema(
    *         type="object",
-   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         @SWG\Items(ref="#/definitions/ApiMessageModel")
    *         ),
    *   ),
    * @SWG\Response(
@@ -233,7 +233,7 @@ class SecurityController extends Controller
    *    description="Your email seems to be invalid",
    *      @SWG\Schema(
    *         type="object",
-   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         @SWG\Items(ref="#/definitions/ApiMessageModel")
    *         ),
    *   ),
    * @SWG\Response(
@@ -241,7 +241,7 @@ class SecurityController extends Controller
    *    description="Email must not be blank!",
    *      @SWG\Schema(
    *         type="object",
-   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         @SWG\Items(ref="#/definitions/ApiMessageModel")
    *         ),
    *   ),
    * @SWG\Response(
@@ -249,7 +249,7 @@ class SecurityController extends Controller
    *    description="This email address already exists.",
    *      @SWG\Schema(
    *         type="object",
-   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         @SWG\Items(ref="#/definitions/ApiMessageModel")
    *         ),
    *   ),
    * @SWG\Response(
@@ -257,7 +257,7 @@ class SecurityController extends Controller
    *    description="This username already exists.",
    *      @SWG\Schema(
    *         type="object",
-   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         @SWG\Items(ref="#/definitions/ApiMessageModel")
    *         ),
    *   ),
    * @SWG\Response(
@@ -265,7 +265,7 @@ class SecurityController extends Controller
    *    description="Username must not be blank",
    *      @SWG\Schema(
    *         type="object",
-   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         @SWG\Items(ref="#/definitions/ApiMessageModel")
    *         ),
    *   ),
    * @SWG\Response(
@@ -273,7 +273,7 @@ class SecurityController extends Controller
    *    description="The username is invalid.",
    *      @SWG\Schema(
    *         type="object",
-   *         @SWG\Items(ref="#/definitions/APIDefaultModel")
+   *         @SWG\Items(ref="#/definitions/ApiMessageModel")
    *         ),
    *   ),
    * @SWG\Response(
@@ -281,7 +281,7 @@ class SecurityController extends Controller
    *    description="Registration successful!",
    *      @SWG\Schema(
    *         type="object",
-   *         @SWG\Items(ref="#/definitions/APIRegisterModel")
+   *         @SWG\Items(ref="#/definitions/ApiRegisterModel")
    *         ),
    *   ),
    * )
@@ -405,7 +405,11 @@ class SecurityController extends Controller
    *   ),
    * @SWG\Response(
    *    response=200,
-   *    description="OK"
+   *    description="OK",
+   *      @SWG\Schema(
+   *         type="object",
+   *         @SWG\Items(ref="#/definitions/ApiLoginModel")
+   *         ),
    *   ),
    * @SWG\Response(
    *    response=764,

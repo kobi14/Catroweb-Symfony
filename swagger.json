@@ -38,7 +38,7 @@
                         "schema": {
                             "type": "object",
                             "items": {
-                                "$ref": "#/definitions/APIDefaultModel"
+                                "$ref": "#/definitions/ApiMessageModel"
                             }
                         }
                     },
@@ -47,7 +47,7 @@
                         "schema": {
                             "type": "object",
                             "items": {
-                                "$ref": "#/definitions/APIDefaultModel"
+                                "$ref": "#/definitions/ApiMessageModel"
                             }
                         }
                     }
@@ -90,7 +90,7 @@
                         "schema": {
                             "type": "object",
                             "items": {
-                                "$ref": "#/definitions/APIDefaultModel"
+                                "$ref": "#/definitions/ApiMessageModel"
                             }
                         }
                     },
@@ -99,7 +99,7 @@
                         "schema": {
                             "type": "object",
                             "items": {
-                                "$ref": "#/definitions/APIDefaultModel"
+                                "$ref": "#/definitions/ApiMessageModel"
                             }
                         }
                     },
@@ -108,7 +108,7 @@
                         "schema": {
                             "type": "object",
                             "items": {
-                                "$ref": "#/definitions/APIDefaultModel"
+                                "$ref": "#/definitions/ApiMessageModel"
                             }
                         }
                     },
@@ -117,7 +117,7 @@
                         "schema": {
                             "type": "object",
                             "items": {
-                                "$ref": "#/definitions/APIDefaultModel"
+                                "$ref": "#/definitions/ApiMessageModel"
                             }
                         }
                     },
@@ -126,7 +126,7 @@
                         "schema": {
                             "type": "object",
                             "items": {
-                                "$ref": "#/definitions/APIDefaultModel"
+                                "$ref": "#/definitions/ApiMessageModel"
                             }
                         }
                     },
@@ -135,7 +135,7 @@
                         "schema": {
                             "type": "object",
                             "items": {
-                                "$ref": "#/definitions/APIDefaultModel"
+                                "$ref": "#/definitions/ApiMessageModel"
                             }
                         }
                     },
@@ -144,7 +144,7 @@
                         "schema": {
                             "type": "object",
                             "items": {
-                                "$ref": "#/definitions/APIDefaultModel"
+                                "$ref": "#/definitions/ApiMessageModel"
                             }
                         }
                     },
@@ -153,7 +153,7 @@
                         "schema": {
                             "type": "object",
                             "items": {
-                                "$ref": "#/definitions/APIDefaultModel"
+                                "$ref": "#/definitions/ApiMessageModel"
                             }
                         }
                     },
@@ -162,7 +162,7 @@
                         "schema": {
                             "type": "object",
                             "items": {
-                                "$ref": "#/definitions/APIDefaultModel"
+                                "$ref": "#/definitions/ApiMessageModel"
                             }
                         }
                     },
@@ -171,7 +171,7 @@
                         "schema": {
                             "type": "object",
                             "items": {
-                                "$ref": "#/definitions/APIRegisterModel"
+                                "$ref": "#/definitions/ApiRegisterModel"
                             }
                         }
                     }
@@ -215,7 +215,13 @@
                         "description": "Your password must have at least 6 characters."
                     },
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/ApiLoginModel"
+                            }
+                        }
                     },
                     "764": {
                         "description": "This username does not exist."
@@ -225,20 +231,15 @@
         }
     },
     "definitions": {
-        "APIDefaultModel": {
+        "ApiDefaultModel": {
             "required": [
-                "statusCode",
-                "answer"
+                "statusCode"
             ],
             "properties": {
                 "statusCode": {
                     "type": "integer",
                     "format": "int64",
                     "example": "200"
-                },
-                "answer": {
-                    "type": "string",
-                    "example": "This is not the answer you are looking for!"
                 },
                 "preHeaderMessages": {
                     "type": "string",
@@ -247,7 +248,7 @@
             },
             "type": "object"
         },
-        "APIRegisterModel": {
+        "ApiLoginModel": {
             "required": [
                 "statusCode",
                 "answer",
@@ -263,9 +264,54 @@
                     "format": "int64",
                     "example": "200"
                 },
+                "preHeaderMessages": {
+                    "type": "string",
+                    "example": ""
+                }
+            },
+            "type": "object"
+        },
+        "ApiMessageModel": {
+            "required": [
+                "statusCode",
+                "answer"
+            ],
+            "properties": {
                 "answer": {
                     "type": "string",
                     "example": "This is not the answer you are looking for!"
+                },
+                "statusCode": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "200"
+                },
+                "preHeaderMessages": {
+                    "type": "string",
+                    "example": ""
+                }
+            },
+            "type": "object"
+        },
+        "ApiRegisterModel": {
+            "required": [
+                "statusCode",
+                "answer",
+                "token"
+            ],
+            "properties": {
+                "token": {
+                    "type": "string",
+                    "example": " ae2b1fca515949e5d54fb22b8ed95575"
+                },
+                "answer": {
+                    "type": "string",
+                    "example": "This is not the answer you are looking for!"
+                },
+                "statusCode": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": "200"
                 },
                 "preHeaderMessages": {
                     "type": "string",

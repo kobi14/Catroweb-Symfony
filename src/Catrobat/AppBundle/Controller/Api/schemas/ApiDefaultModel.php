@@ -5,11 +5,11 @@ use Swagger\Annotations as SWG;
 
 /**
  * @SWG\Definition(
- *   required={"statusCode", "answer"},
+ *   required={"statusCode"},
  *   type="object",
  *   )
  */
-class APIDefaultModel
+class ApiDefaultModel
 {
   /**
    * @SWG\Property(format="int64", example="200")
