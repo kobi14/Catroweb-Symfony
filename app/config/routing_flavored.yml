@@ -78,10 +78,10 @@ sonata_user_change_password:
     prefix: /profile
 
 sonata_user_profile_show:
-    pattern: /myprofile
+    path: /myprofile
     defaults: { _controller: "AppBundle:Web/Profile:profile", "id": 0 }
 
 fos_user_profile_show:
-    pattern: /myprofile
+    path: /myprofile
     defaults: { _controller: "AppBundle:Web/Profile:profile", "id": 0 }
 

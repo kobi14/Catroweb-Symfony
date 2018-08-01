@@ -29,7 +29,7 @@ sonata_user_security:
     resource: "@SonataUserBundle/Resources/config/routing/sonata_security_1.xml"
 
 sonata_user_admin_security_logout:
-    pattern: /logout
+    path: /logout
     defaults: { _controller: "SonataUserBundle:AdminSecurity:logout" } 
 
 old_version_error:
