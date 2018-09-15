@@ -47,6 +47,13 @@
 
 
   <div class="clear mt-4"></div>
+  {% if app.user.username == 'bob' %}
+  <form action="{{ url('profile_stealProgram') }}" method="post" class="my-2">
+    <input type="hidden" name="token" value="{{ csrf_token('profile-stealProgram') }}" />
+    <button id="btn-steal-program" type="submit" class="btn btn-secondary">{{ 'profile.stealProgram'|trans({}, 'catroweb') }}</button>
+  </form>
+  {% endif %}
+
   {% if not app.user.limited %}
   <div id="myprofile-programs">
   {% else %}

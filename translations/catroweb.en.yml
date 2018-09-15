@@ -150,6 +150,7 @@ profile:
   repeatPass: repeat password
   firstEmail: My first email
   secondEmail: My second email
+  stealProgram: Steal a program
   myPrograms: My programs
   follows: Follows
   follower: Follower

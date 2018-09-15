@@ -53,6 +53,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
   private $screenshot_directory;
   private $client;
   private $use_real_oauth_javascript_code;
+  private $request_parameters;
 
   const AVATAR_DIR = './testdata/DataFixtures/AvatarImages/';
   const MEDIAPACKAGE_DIR = './testdata/DataFixtures/MediaPackage/';
@@ -75,6 +76,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
     }
     $this->use_real_oauth_javascript_code = false;
     $this->setOauthServiceParameter('0');
+    $this->request_parameters = [];
   }
 
   /**
@@ -2851,4 +2853,29 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
     $type = $page->find('css', $arg1)->getAttribute("type");
     Assert::assertNotEquals($arg2, $type);
   }
+
+  /**
+   * @Given /^I have a parameter "([^"]*)" with value "([^"]*)"$/
+   *
+   * @param string name The name of the parameter to add
+   * @param string value  The value of the parameter to add
+   */
+  public function iHaveAParameterWithValue($name, $value)
+  {
+    $this->request_parameters[$name] = $value;
+  }
+
+  /**
+   * @When /^I POST these parameters to "([^"]*)"$/
+   * @param string url The POST url
+   */
+  public function iPostTheseParametersTo($url)
+  {
+    $this->getClient()->request('POST', $url, $this->request_parameters, [], [
+      'HTTP_HOST' => "localhost",
+      'HTTPS'     => false,
+    ]);
+    $this->request_parameters = [];
+  }
+
 }

@@ -111,6 +111,7 @@ profile:
   repeatPass: Passwort wiederholen
   firstEmail: Meine erste E-Mail
   secondEmail: Meine zweite E-Mail
+  stealProgram: Ein Programm stehlen
   myPrograms: Meine Programme
   form:
     passwordTooShort: Das neue Passwort muss mindestens %length% Zeichen lang sein.
