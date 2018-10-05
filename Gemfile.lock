@@ -12,7 +12,7 @@ GEM
       capistrano (>= 3.0.0.pre)
     capistrano-file-permissions (1.0.0)
       capistrano (~> 3.0)
-    capistrano-symfony (1.0.0.rc3)
+    capistrano-symfony (1.0.0)
       capistrano (~> 3.1)
       capistrano-composer (~> 0.0.3)
       capistrano-file-permissions (~> 1.0)
@@ -26,15 +26,18 @@ GEM
     sshkit (1.17.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    sshkit-sudo (0.1.0)
+      sshkit (~> 1.8)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  capistrano (~> 3.4)
+  capistrano (~> 3.11)
   capistrano-composer
   capistrano-file-permissions
-  capistrano-symfony (~> 1.0.0.rc3)
+  capistrano-symfony (~> 1.0.0)
+  sshkit-sudo
 
 BUNDLED WITH
    1.16.4
