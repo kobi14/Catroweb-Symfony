@@ -56,6 +56,7 @@ class AppKernel extends Kernel
       $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
       $bundles[] = new \Symfony\Bundle\MakerBundle\MakerBundle();
 //      $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
+      $bundles[] = new EasyCorp\Bundle\EasyDeployBundle\EasyDeployBundle();
     }
 
     return $bundles;
