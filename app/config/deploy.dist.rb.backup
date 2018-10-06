@@ -28,7 +28,7 @@ set :deploy_via, :rsync_with_remote_cache
 set :keep_releases,  3
 
 # permissions
-set :writable_dirs,       ["app/cache", "app/logs", "backups", "web/resources/featured", "web/resources/extract", "web/resources/programs", "web/resources/screenshots", "web/resources/thumbnails", "web/resources/apk", "web/resources/mediapackage", "Resources/Snapshots"]
+set :writable_dirs,       ["var/cache", "var/logs", "backups", "web/resources/featured", "web/resources/extract", "web/resources/programs", "web/resources/screenshots", "web/resources/thumbnails", "web/resources/apk", "web/resources/mediapackage", "Resources/Snapshots"]
 
 set :webserver_user,      "www-data"
 set :permission_method,   :acl
