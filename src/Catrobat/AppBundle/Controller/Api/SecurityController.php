@@ -1151,19 +1151,58 @@ class SecurityController extends Controller
    * @Route("/api/getFacebookAppId/getFacebookAppId.json", name="catrobat_oauth_login_get_facebook_appid",
    *                                                       options={"expose"=true}, defaults={"_format": "json"},
    *                                                       methods={"GET"})
+   *
+   * @return JsonResponse
+   *
+   * @OA\Get(
+   *     path="/api/getFacebookAppId/getFacebookAppId.json",
+   *     tags={"Security"},
+   *     summary="Get PocketCode Web Facebook APP ID",
+   *     description="Get PocketCode Web Facebook APP ID",
+   *     operationId="getFacebookAppId",
+   *     @OA\Response(
+   *         response=200,
+   *         description="Request successful!",
+   *         @OA\JsonContent(
+   *            type="array",
+   *            @OA\Items(ref="#/components/schemas/FacebookAppIDModel")
+   *         )
+   *     ),
+   *     deprecated=false
+   * )
    */
   public function getFacebookAppId()
   {
     $retArray = [];
+    $retArray['statusCode'] = Response::HTTP_OK;
     $retArray['fb_appid'] = $this->container->getParameter('facebook_app_id');
 
-    return JsonResponse::create($retArray);
+    return JsonResponse::create($retArray, Response::HTTP_OK);
   }
 
   /**
    * @Route("/api/getGoogleAppId/getGoogleAppId.json", name="catrobat_oauth_login_get_google_appid",
    *                                                   options={"expose"=true}, defaults={"_format": "json"},
    *                                                   methods={"GET"})
+   *
+   * @return JsonResponse
+   *
+   * @OA\Get(
+   *     path="/api/getGoogleAppId/getGoogleAppId.json",
+   *     tags={"Security"},
+   *     summary="Get PocketCode Web Google APP ID",
+   *     description="Get PocketCode Web Google APP ID",
+   *     operationId="getGoogleAppId",
+   *     @OA\Response(
+   *         response=200,
+   *         description="Request successful!",
+   *         @OA\JsonContent(
+   *            type="array",
+   *            @OA\Items(ref="#/components/schemas/GoogleAppIDModel")
+   *         )
+   *     ),
+   *     deprecated=false
+   * )
    */
   public function getGoogleAppId()
   {
@@ -1177,13 +1216,33 @@ class SecurityController extends Controller
    * @Route("/api/generateCsrfToken/generateCsrfToken.json", name="catrobat_oauth_register_get_csrftoken",
    *                                                         options={"expose"=true}, defaults={"_format": "json"},
    *                                                         methods={"GET"})
+   *
+   * @return JsonResponse
+   *
+   * @OA\Get(
+   *     path="/api/generateCsrfToken/generateCsrfToken.json",
+   *     tags={"Security"},
+   *     summary="Get CSRF Token",
+   *     description="Get CSRF Token",
+   *     operationId="generateCsrfToken",
+   *     @OA\Response(
+   *         response=200,
+   *         description="Request successful!",
+   *         @OA\JsonContent(
+   *            type="array",
+   *            @OA\Items(ref="#/components/schemas/CSRFTokenModel")
+   *         )
+   *     ),
+   *     deprecated=false
+   * )
    */
   public function generateCsrfToken()
   {
     $retArray = [];
+    $retArray['statusCode'] = Response::HTTP_OK;
     $retArray['csrf_token'] = $this->container->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
 
-    return JsonResponse::create($retArray);
+    return JsonResponse::create($retArray, Response::HTTP_OK);
   }
 
   /**
