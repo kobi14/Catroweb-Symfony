@@ -46,6 +46,7 @@
         "behat/symfony2-extension": "^2.1",
         "bossa/phpspec2-expect": "^3.0",
         "dmore/behat-chrome-extension": "^1.2",
+        "easycorp/easy-deploy-bundle": "^1.0",
         "leanphp/phpspec-code-coverage": "^4.2",
         "phpcheckstyle/phpcheckstyle": "^0.14.8",
         "phpspec/phpspec": "^4.0",
@@ -88,20 +89,10 @@
             "SymfonyStandard\\Composer::hookRootPackageInstall"
         ],
         "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
         ],
         "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
         ]
     },
 
