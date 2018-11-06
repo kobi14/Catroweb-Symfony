@@ -1,4 +1,5 @@
 <?php
+
 namespace Catrobat\AppBundle\Twig;
 
 use Catrobat\AppBundle\Entity\MediaPackageFile;
@@ -9,6 +10,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Catrobat\AppBundle\Entity\GameJamRepository;
 use Liip\ThemeBundle\ActiveTheme;
 use Symfony\Component\Intl\Intl;
+use Symfony\Component\Intl\NumberFormatter\NumberFormatter;
 
 class AppExtension extends \Twig_Extension
 {
@@ -62,7 +64,8 @@ class AppExtension extends \Twig_Extension
             'flavor' => new \Twig_Function_Method($this, 'getFlavor'),
             'theme' => new \Twig_Function_Method($this, 'getTheme'),
             'getCurrentGameJam' => new \Twig_Function_Method($this, 'getCurrentGameJam'),
-            'getJavascriptPath' => new \Twig_Function_Method($this, 'getJavascriptPath')
+            'getJavascriptPath' => new \Twig_Function_Method($this, 'getJavascriptPath'),
+            'getCommunityStats' => new \Twig_Function_Method($this, 'getCommunityStats')
         );
     }
 
@@ -80,29 +83,29 @@ class AppExtension extends \Twig_Extension
     {
         $path = $this->translationPath;
         $current_language = $this->request_stack->getCurrentRequest()->getLocale();
-        
+
         if (strpos($current_language, '_DE') !== false || strpos($current_language, '_US') !== false) {
             $current_language = substr($current_language, 0, 2);
         }
-        
+
         $list = array();
-        
+
         $finder = new Finder();
         $finder->files()
             ->in($path)
             ->sortByName();
-        
+
         $isSelectedLangugage = false;
-        
+
         foreach ($finder as $translationFileName) {
             $shortName = $this->getShortLanguageNameFromFileName($translationFileName->getRelativePathname());
-            
+
             $isSelectedLangugage = $current_language === $shortName;
-            
+
             if (strcmp($current_language, $shortName)) {
                 $isSelectedLangugage = true;
             }
-            
+
             $locale = Intl::getLocaleBundle()->getLocaleName($shortName, $shortName);
             if ($locale != null) {
                 $list[] = array(
@@ -112,8 +115,8 @@ class AppExtension extends \Twig_Extension
                 );
             }
         }
-        
-        if (! $isSelectedLangugage) {
+
+        if (!$isSelectedLangugage) {
             $list = $this->setSelectedLanguage($list, $current_language);
         }
         return $list;
@@ -124,7 +127,7 @@ class AppExtension extends \Twig_Extension
         $list = array();
         foreach ($languages as $language) {
             if (strpos($currentLanguage, $language[0]) !== false) {
-                
+
                 $language = array(
                     $language[0],
                     $language[1],
@@ -140,7 +143,7 @@ class AppExtension extends \Twig_Extension
     {
         $firstOccurrence = strpos($filename, '.') + 1;
         $lastOccurrence = strpos($filename, '.', $firstOccurrence);
-        
+
         return substr($filename, $firstOccurrence, $lastOccurrence - $firstOccurrence);
     }
 
@@ -148,10 +151,10 @@ class AppExtension extends \Twig_Extension
     {
         $request = $this->request_stack->getCurrentRequest();
         $user_agent = $request->headers->get('User-Agent');
-        
+
         // Example Webview: $user_agent = "Catrobat/0.93 PocketCode/0.9.14 Platform/Android";
         return preg_match('/Catrobat/', $user_agent) || strpos($user_agent, 'Android') != false ||
-               strpos($user_agent, 'iPad') != false  || strpos($user_agent, 'iPhone') != false;
+            strpos($user_agent, 'iPad') != false || strpos($user_agent, 'iPhone') != false;
     }
 
     /**
@@ -168,17 +171,17 @@ class AppExtension extends \Twig_Extension
         // Example Webview: $user_agent = "Catrobat/0.93 PocketCode/0.9.14 Platform/Android";
         if (preg_match('/Catrobat/', $user_agent)) {
             $user_agent_array = explode("/", $user_agent);
-            
+
             // $user_agent_array = [ "Catrobat", "0.93 PocketCode", 0.9.14 Platform", "Android" ];
             $catrobat_language_array = explode(" ", $user_agent_array[1]);
             // $catrobat_language_array = [ "0.93", "PocketCode" ];
             $catrobat_language = $catrobat_language_array[0] * 1.0;
-            
+
             if ($catrobat_language < $program_catrobat_language) {
                 return false;
             }
         }
-        
+
         return true;
     }
 
@@ -195,7 +198,7 @@ class AppExtension extends \Twig_Extension
 
     /**
      *
-     * @param $object MediaPackageFile            
+     * @param $object MediaPackageFile
      * @return null|string
      */
     public function getMediaPackageImageUrl($object)
@@ -214,7 +217,7 @@ class AppExtension extends \Twig_Extension
 
     /**
      *
-     * @param $object MediaPackageFile            
+     * @param $object MediaPackageFile
      * @return null|string
      */
     public function getMediaPackageSoundUrl($object)
@@ -236,10 +239,35 @@ class AppExtension extends \Twig_Extension
         return $this->gamejamrepository->getCurrentGameJam();
     }
 
-    public function getJavascriptPath($jsFile) {
+    public function getJavascriptPath($jsFile)
+    {
         $jsPath = $this->container->getParameter('jspath');
         $jsPath .= $jsFile;
         $jsPath = str_replace("//", "/", $jsPath);
         return $jsPath;
+    }
+
+    /**
+     * Twig extension to provide a function to retrieve the community statistics in any view.
+     * Needed to render the footer.
+     *
+     * See the fetchStatistics implementation of AppBundle\Services\CommunityStatisticsService.php
+     *                                           for details.
+     * @return array|mixed
+     */
+    public function getCommunityStats()
+    {
+        $cms_s = $this->container->get("community_statistics_service");
+        $stats = $cms_s->fetchStatistics();
+
+        /* Numberformatter could be used to apply the locale. However this requires the intl extension to be fully working.
+
+        $nf = new NumberFormatter($this->request_stack->getCurrentRequest()->getLocale(), 1);
+        foreach ($stats as $key => $value)
+        {
+          $stats[$key] = $nf->format($value);
+        }
+        */
+        return $stats;
     }
 }

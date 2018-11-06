@@ -4,6 +4,7 @@ namespace Catrobat\AppBundle\Features\Web\Context;
 
 use Behat\Behat\Context\CustomSnippetAcceptingContext;
 use Behat\Behat\Tester\Exception\PendingException;
+use Behat\Mink\Element\NodeElement;
 use Catrobat\AppBundle\Entity\CatroNotification;
 use Catrobat\AppBundle\Entity\Extension;
 use Catrobat\AppBundle\Entity\FeaturedProgram;
@@ -233,7 +234,24 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
   public function iShouldSeeTheFeaturedSlider()
   {
     $this->assertSession()->responseContains('featured');
-    assertTrue($this->getSession()->getPage()->findById('featuredPrograms')->isVisible());
+    assertTrue($this->getSession()->getPage()->findById('feature-slider')->isVisible());
+  }
+
+  /**
+   * @Then /^I should see the welcome section$/
+   */
+  public function iShouldSeeTheWelcomeSection()
+  {
+    assertTrue($this->getSession()->getPage()->findById('welcomeSection')->isVisible());
+  }
+
+
+  /**
+   * @Then /^I should not see the welcome section$/
+   */
+  public function iShouldNotSeeTheWelcomeSection()
+  {
+    assertNull($this->getSession()->getPage()->findById('welcomeSection'));
   }
 
   /**
@@ -679,6 +697,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
     * @var $new_comment \Catrobat\AppBundle\Entity\UserComment
     */
     $em = $this->kernel->getContainer()->get('doctrine')->getManager();
+    $pm = $this->kernel->getContainer()->get('programmanager');
     $comments = $table->getHash();
 
     foreach ($comments as $comment)
@@ -686,6 +705,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
       $new_comment = new UserComment();
 
       $new_comment->setUploadDate(new \DateTime($comment['upload_date'], new \DateTimeZone('UTC')));
+      $new_comment->setProgram($pm->find($comment['program_id']));
       $new_comment->setProgramId($comment['program_id']);
       $new_comment->setUserId($comment['user_id']);
       $new_comment->setUsername($comment['user_name']);
@@ -1210,14 +1230,6 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
   }
 
   /**
-   * @Then /^the copy link should be "([^"]*)"$/
-   */
-  public function theCopyLinkShouldBe($url)
-  {
-    assertEquals($this->getSession()->getPage()->findField('copy-link')->getValue(), $this->locatePath($url));
-  }
-
-  /**
    * @Given /^there are mediapackages:$/
    */
   public function thereAreMediapackages(TableNode $table)
@@ -1305,12 +1317,8 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
       @$config = [
         'downloaded_at' => $program_stats[$i]['downloaded_at'],
         'ip'            => $program_stats[$i]['ip'],
-        'latitude'      => $program_stats[$i]['latitude'],
-        'longitude'     => $program_stats[$i]['longitude'],
         'country_code'  => $program_stats[$i]['country_code'],
         'country_name'  => $program_stats[$i]['country_name'],
-        'street'        => $program_stats[$i]['street'],
-        'postal_code'   => @$program_stats[$i]['postal_code'],
         'locality'      => @$program_stats[$i]['locality'],
         'user_agent'    => @$program_stats[$i]['user_agent'],
         'username'      => @$program_stats[$i]['username'],
@@ -1320,13 +1328,8 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
       $program_statistics->setProgram($program);
       $program_statistics->setDownloadedAt(new \DateTime($config['downloaded_at']) ?: new DateTime());
       $program_statistics->setIp(isset($config['ip']) ? $config['ip'] : '88.116.169.222');
-      $program_statistics->setLatitude(isset($config['latitude']) ? $config['latitude'] : 47.2);
-      $program_statistics->setLongitude(isset($config['longitude']) ? $config['longitude'] : 10.7);
       $program_statistics->setCountryCode(isset($config['country_code']) ? $config['country_code'] : 'AT');
       $program_statistics->setCountryName(isset($config['country_name']) ? $config['country_name'] : 'Austria');
-      $program_statistics->setStreet(isset($config['street']) ? $config['street'] : 'Duck Street 1');
-      $program_statistics->setPostalCode(isset($config['postal_code']) ? $config['postal_code'] : '1234');
-      $program_statistics->setLocality(isset($config['locality']) ? $config['locality'] : 'Entenhausen');
       $program_statistics->setUserAgent(isset($config['user_agent']) ? $config['user_agent'] : 'okhttp');
       $program_statistics->setReferrer(isset($config['referrer']) ? $config['referrer'] : 'Facebook');
 
@@ -1631,7 +1634,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
   {
     $page = $this->getSession()->getPage();
     $video = $page->find('css', '#youtube-help-video');
-    assertTrue($video->getAttribute('src') == $url);
+    assertTrue($video->getAttribute('src') == $url + "&origin=http://localhost");
   }
 
 
@@ -2117,7 +2120,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
   public function iShouldSeeTheSliderWithTheValues($values)
   {
     $slider_items = explode(',', $values);
-    $owl_items = $this->getSession()->getPage()->findAll('css', '.owl-item div a');
+    $owl_items = $this->getSession()->getPage()->findAll('css', 'div.item > a');
     assertEquals(count($owl_items), count($slider_items));
 
     for ($index = 0; $index < count($owl_items); $index++)
@@ -2171,8 +2174,9 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
    */
   public function iSearchForWithTheSearchbar($arg1)
   {
+    $this->iClick('.search-icon-header');
     $this->fillField('search-input-header', $arg1);
-    $this->iClick('#search-header');
+    $this->iClick('.catro-search-button');
   }
 
   /**
@@ -2415,7 +2419,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
    */
   public function iClickOnAFeaturedHomepageProgram()
   {
-    $arg1 = '.owl-item > div > a:first-child';
+    $arg1 = '#feature-slider > div > div:first-child > a';
     $this->assertSession()->elementExists('css', $arg1);
 
     $this
@@ -2542,4 +2546,113 @@ class FeatureContext extends MinkContext implements KernelAwareContext, CustomSn
     $arg1 = '.homepage-recommended-programs';
     $this->assertSession()->elementNotExists('css', $arg1);
   }
+
+  /**
+   * @Then /^I should see the image "([^"]*)"$/
+   */
+  public function iShouldSeeTheImage($arg1)
+  {
+    $img = $this->getSession()->getPage()->findById('logo');
+
+    if ($img != null)
+    {
+      assertEquals($img->getTagName(), 'img');
+      $src = $img->getAttribute('src');
+      assertTrue(strpos($src, $arg1) !== false, "<$src> does not contain $arg1");
+      assertTrue($img->isVisible(), "Image is not visible.");
+    }
+    else
+    {
+      assertTrue(false, "#logo not found!");
+    }
+  }
+
+  /**
+   * @Then /^I click the currently visible search icon$/
+   */
+  public function iClickTheCurrentlyVisibleSearchIcon()
+  {
+    $icons = $this->getSession()->getPage()->findAll("css", ".search-icon-header");
+    foreach ($icons as $icon)
+    {
+      /** @var NodeElement $icon */
+      if ($icon->isVisible())
+      {
+        $icon->click();
+        return;
+      }
+    }
+    assertTrue(false, "Tried to click .search-icon-header but no visible element was found.");
+  }
+
+  /**
+   * @Then /^at least one "([^"]*)" element should be visible$/
+   */
+  public function atLeastOneElementShouldBeVisible($arg1)
+  {
+    $elements = $this->getSession()->getPage()->findAll("css", $arg1);
+    foreach ($elements as $element)
+    {
+      /** @var NodeElement $element */
+      if ($element->isVisible())
+      {
+        return;
+      }
+    }
+    assertTrue(false, "No $arg1 element currently visible.");
+  }
+
+  /**
+   * @Then /^no "([^"]*)" element should be visible$/
+   */
+  public function atLeastOneElementShouldNotBeVisible($arg1)
+  {
+    $elements = $this->getSession()->getPage()->findAll("css", $arg1);
+    foreach ($elements as $element)
+    {
+      /** @var NodeElement $element */
+      if ($element->isVisible())
+      {
+        assertTrue(false, "Found visible $arg1 element.");
+      }
+    }
+  }
+
+  /**
+   * @Then /^I click the currently visible search button$/
+   */
+  public function iClickTheCurrentlyVisibleSearchButton()
+  {
+    $icons = $this->getSession()->getPage()->findAll("css", ".btn-search");
+    foreach ($icons as $icon)
+    {
+      /** @var NodeElement $icon */
+      if ($icon->isVisible())
+      {
+        $icon->click();
+        return;
+      }
+    }
+    assertTrue(false, "Tried to click .btn-search but no visible element was found.");
+  }
+
+  /**
+   * @Then /^I enter "([^"]*)" into the currently visible search input$/
+   */
+  public function iEnterIntoTheCurrentlyVisibleSearchInput($arg1)
+  {
+    $fields = $this->getSession()->getPage()->findAll("css", ".input-search");
+    foreach ($fields as $field)
+    {
+      /** @var NodeElement $field */
+      if ($field->isVisible())
+      {
+        $field->setValue($arg1);
+        return;
+      }
+    }
+    assertTrue(false, "Tried to click .btn-search but no visible element was found.");
+  }
+
 }
+

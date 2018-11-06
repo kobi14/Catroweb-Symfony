@@ -107,10 +107,12 @@ class ProgramManager
     $program->setRemixMigratedAt(null);
     $program->setFlavor($request->getFlavor());
     $this->addTags($program, $extracted_file, $request->getLanguage());
-    $version = $program->getLanguageVersion();
-    $max_version = $this->max_version;
 
-    if (version_compare($version, "0.994", ">"))
+
+    $version = $program->getLanguageVersion();
+
+    $max_version = $this->max_version;
+    if (version_compare($version, $max_version, ">"))
     {
       $program->setPrivate(true);
     }
@@ -156,20 +158,37 @@ class ProgramManager
 
         throw $error;
       }
+
       return null;
     }
 
-
-    if ($extracted_file->getScreenshotPath() == null)
+    try
     {
-      // Todo: maybe for later implementations
-    }
-    else
+      if ($extracted_file->getScreenshotPath() == null)
+      {
+        // Todo: maybe for later implementations
+      }
+      else
+      {
+        $this->screenshot_repository->makeTempProgramAssetsPerm($program->getId());
+      }
+      $this->file_repository->makeTempProgramPerm($program->getId());
+    } catch (\Exception $e)
     {
-      $this->screenshot_repository->makeTempProgramAssetsPerm($program->getId());
-    }
-    $this->file_repository->makeTempProgramPerm($program->getId());
+      $program_id = $program->getId();
+      $this->entity_manager->remove($program);
+      $this->entity_manager->flush();
+      try
+      {
+        $this->screenshot_repository->deletePermProgramAssets($program_id);
+        $this->file_repository->deleteProgramFile($program_id);
+      } catch (IOException $error)
+      {
+        throw $error;
+      }
 
+      return null;
+    }
 
     $this->entity_manager->persist($program);
     $this->entity_manager->flush();
