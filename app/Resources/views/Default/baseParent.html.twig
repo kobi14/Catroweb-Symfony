@@ -33,19 +33,13 @@
 
   {% block head %}{% endblock %}
 </head>
-<body{% if new_nav is defined %} class="new-nav"{% endif %}>
-
-<div id="wrapper"{% if new_nav is not defined %} class="fixed-nav"{% endif %}>
-  <header>
+<body class="new-nav">
+ <header>
     {% block header %}
       {% include 'Default/header.html.twig' %}
     {% endblock %}
   </header>
-
-  {% if new_nav is defined %}
     {% include 'Default/sidebar.html.twig' with {sidebar_ul: (block('sidebar_ul')) ?? ''} %}
-  {% endif %}
-
   <div class="container">
     {% block body %}{% endblock %}
   </div>
