@@ -1,21 +1,17 @@
-<nav class="navbar nav-catrobat{% if new_nav is not defined %} fixed-top navbar-expand-md{% endif %} navbar-dark bg-catrobat">
+<nav class="navbar nav-catrobat navbar-dark bg-catrobat">
 
   <div class="container">
 
-    {% if new_nav is defined %}
       <button id="btn-sidebar-toggle" class="navbar-toggler" type="button"
               aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    {% endif %}
+
 
     <a class="nav-logo " href="{{ path('index') }}">
       <img
           id="logo" {% include 'Default/headerLogo.html.twig' %}/> {# header logo contains src and alt from theme #}
     </a>
-    {% if new_nav is not defined %}
-    <a id="page-name" class="nav-link navbar-brand mt-1" href="{{ path('index') }}">Home</a>
-    {% endif %}
 
     {% if theme() == 'pocketgalaxy' %}
       <a id="event-link" class="navbar-brand mt-1" href="http://www.galaxygamejam.com/AT/main.html">Event</a>
