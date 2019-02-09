@@ -96,6 +96,7 @@ class UploadController
       throw new NoGameJamException();
     }
 
+    $this->logger->error("SubmitAction called");
     return $this->processUpload($request, $jam);
   }
 

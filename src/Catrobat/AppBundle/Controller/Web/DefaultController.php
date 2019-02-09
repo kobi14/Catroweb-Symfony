@@ -3,6 +3,7 @@
 namespace Catrobat\AppBundle\Controller\Web;
 
 use Catrobat\AppBundle\Entity\User;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Catrobat\AppBundle\Services\FeaturedImageRepository;
@@ -20,8 +21,11 @@ class DefaultController extends Controller
   /**
    * @Route("/", name="index", methods={"GET"})
    */
-  public function indexAction(Request $request)
+  public function indexAction(Request $request, LoggerInterface $logger)
   {
+
+    $logger->error("indexAction called");
+
     /**
      * @var $image_repository FeaturedImageRepository
      * @var $repository       FeaturedRepository
