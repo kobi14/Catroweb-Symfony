@@ -75,7 +75,7 @@ class UploadController
    */
   public function uploadAction(Request $request)
   {
-    $this->logger->info("UploadAction called");
+    $this->logger->error("UploadAction called");
     return $this->processUpload($request);
   }
 
