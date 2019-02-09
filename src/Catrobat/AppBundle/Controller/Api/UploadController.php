@@ -6,6 +6,7 @@ use Catrobat\AppBundle\Entity\GameJam;
 use Catrobat\AppBundle\Entity\Program;
 use Catrobat\AppBundle\Entity\NewProgramNotification;
 use Catrobat\AppBundle\Entity\User;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Catrobat\AppBundle\Entity\UserManager;
@@ -38,6 +39,9 @@ class UploadController
 
   private $translator;
 
+  private $logger;
+
+
   /**
    * UploadController constructor.
    *
@@ -50,7 +54,7 @@ class UploadController
    */
   public function __construct(UserManager $usermanager, TokenStorage $tokenstorage, ProgramManager $programmanager,
                               GameJamRepository $gamejamrepository, TokenGenerator $tokengenerator,
-                              TranslatorInterface $translator)
+                              TranslatorInterface $translator, LoggerInterface $logger)
   {
     $this->usermanager = $usermanager;
     $this->tokenstorage = $tokenstorage;
@@ -58,6 +62,7 @@ class UploadController
     $this->gamejamrepository = $gamejamrepository;
     $this->tokengenerator = $tokengenerator;
     $this->translator = $translator;
+    $this->logger = $logger;
   }
 
 
@@ -70,6 +75,7 @@ class UploadController
    */
   public function uploadAction(Request $request)
   {
+    $this->logger->info("UploadAction called");
     return $this->processUpload($request);
   }
 
