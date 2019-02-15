@@ -276,6 +276,9 @@
         <span class="fa fa-link" aria-hidden="true"></span>
         Link
       </button>
+      <button id="steal-program-button" type="button" class="btn btn-lg btn-link btn-copy" style="text-shadow: none;">
+        Steal Program
+      </button>
 
       {% if not my_program %}
         <button type="button" class="btn btn-lg btn-link btn-copy" style="text-shadow: none;"
@@ -639,6 +642,45 @@
           error  : function () {
             alert('something went terribly wrong')
             $(this).addClass('not-selected')
+          }
+        })
+        return false
+      })
+
+      $(document).on('click', '#steal-program-button', function () {
+        event.preventDefault()
+        var url = "{{ path('steal_program', { 'id' : program.id }) }}"
+        var username = "{{ user_name }}"
+        if (username === '')
+        {
+          window.location.href = url
+          return false
+        }
+
+        $.ajax({
+          url    : url,
+          type   : 'get',
+          success: function (data) {
+            if (data.statusCode !== {{ constant('Catrobat\\AppBundle\\StatusCode::OK') }})
+            {
+              if (data.statusCode === {{ constant('Catrobat\\AppBundle\\StatusCode::LOGIN_ERROR') }})
+              {
+                window.location.href = url
+                return
+              }
+              if(data.statusCode === {{ constant('Catrobat\\AppBundle\\StatusCode::PROGRAM_ALREADY_STOLEN') }})
+              {
+                alert("You have already stolen this program")
+              }
+              return
+            }
+            else
+            {
+              window.location.href = data.data.redirectPath
+            }
+          },
+          error  : function () {
+            alert('something went terribly wrong')
           }
         })
         return false

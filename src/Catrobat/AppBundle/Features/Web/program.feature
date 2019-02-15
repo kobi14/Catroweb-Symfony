@@ -229,3 +229,17 @@ Feature: As a visitor I want to see a program page
     Given I am on "/pocketcode/program/1"
     Then I should see "my superman description"
     And I should not see "Show more"
+
+  Scenario: Become the owner of the program when the steal program button was clicked
+    Given I am on "/pocketcode/login"
+    And I fill in "username" with "Gregor"
+    And I fill in "password" with "123456"
+    And I press "Login"
+    Then I should be logged in
+    And I am on "/pocketcode/program/1"
+    Then I should see "my superman description"
+    When I click "#steal-program-button"
+    And I wait for the server response
+    And I am on "/pocketcode/profile"
+    And I should see "dev2@pocketcode.org"
+    And I should see "program 1"

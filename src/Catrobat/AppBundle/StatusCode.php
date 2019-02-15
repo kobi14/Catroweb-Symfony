@@ -76,4 +76,6 @@ class StatusCode
 
   const FB_POST_ERROR = 790;
   const FB_DELETE_ERROR = 791;
+
+  const PROGRAM_ALREADY_STOLEN = 792;
 }

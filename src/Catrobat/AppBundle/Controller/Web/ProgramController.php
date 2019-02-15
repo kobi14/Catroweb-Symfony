@@ -175,6 +175,58 @@ class ProgramController extends Controller
   }
 
   /**
+   * @Route("/program/steal/{id}", name="steal_program", requirements={"id":"\d+"}, methods={"GET"})
+   *
+   * @param Request $request
+   * @param integer $id
+   *
+   * @throws \Exception
+   *
+   * @return JsonResponse|RedirectResponse
+   */
+  public function stealProgram(Request $request, $id)
+  {
+    $program_manager = $this->get('programmanager');
+    $program = $program_manager->find($id);
+    if ($program === null)
+    {
+      if ($request->isXmlHttpRequest())
+      {
+        return JsonResponse::create(['statusCode' => StatusCode::INVALID_PARAM,
+          'message'    => 'Program with given ID does not exist!']);
+      }
+      else
+      {
+        throw $this->createNotFoundException('Program with given ID does not exist!');
+      }
+    }
+
+    $user = $this->getUser();
+    if (!$user)
+    {
+      if ($request->isXmlHttpRequest())
+      {
+        return JsonResponse::create(['statusCode' => StatusCode::LOGIN_ERROR]);
+      }
+      else
+      {
+        return $this->redirectToRoute('login');
+      }
+    }
+    if($program->getUser() == $user)
+    {
+      return JsonResponse::create(['statusCode' => StatusCode::PROGRAM_ALREADY_STOLEN]);
+    }
+
+    $program->setUser($user);
+    $program_manager->save($program);
+    return new JsonResponse(['statusCode' => StatusCode::OK, 'data' => [
+      'id'             => $id,
+      'redirectPath'       => "/pocketcode/profile"
+    ]]);
+  }
+
+  /**
    * @Route("/program/like/{id}", name="program_like", requirements={"id":"\d+"}, methods={"GET"})
    *
    * @param Request $request
